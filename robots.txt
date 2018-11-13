@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://arcolife.github.io/sitemap.xml 

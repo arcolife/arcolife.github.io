@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Archit Sharma on Web</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="arcolife's portfolio">
+    <meta name="author" content="arcolife">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery/1.7.2/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+     jQuery(document).ready(function($){
+       $(".scroll").click(function(event){
+	 event.preventDefault();
+	 $('html,body').animate({scrollTop:$(this.hash).offset().top},800);
+       });
+     });
+    </script>
+  </head>
+
+  <body> <!--body background="img/plane.png" style="background-size:cover; background-repeat: no-repeat;"-->
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+	<div class="container">
+          <a class="brand pull-left" href="#">Who is @arcolife?</a>
+	</div>
+      </div>
+    </div>
+
+    <div class="column">
+
+      <div class="progress">
+	<div class="progress-bar progress-bar-success" style="width: 100%"></div>
+      </div>
+
+      <div class="column">
+	<div class="container">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Archit Sharma</h3>
+            </div>
+            <div class="panel-body">
+              <ul class="nav nav-tabs">
+		<li class="active"><a aria-expanded="true" href="#updates" data-toggle="tab">Updates</a></li>
+		<li class=""><a aria-expanded="false" href="#bio" data-toggle="tab">Bio</a></li>
+		<li class=""><a area-expanded="false" href="#experience" data-toggle="tab">Work Experience</a></li>
+		<li class=""><a area-expanded="false" href="#projects" data-toggle="tab">Projects &amp; Research</a></li>
+		<li class=""><a area-expanded="false" href="#foss" data-toggle="tab">FOSS Contributions</a></li>
+		<li class=""><a area-expanded="false" href="#academics" data-toggle="tab">Academics</a></li>
+		<li class=""><a area-expanded="false" href="#hobbies" data-toggle="tab">Hobbies</a></li>
+		<li class=""><a area-expanded="false" href="#blogs" data-toggle="tab">Blogs and Social</a></li>
+		<li class=""><a area-expanded="false" href="#contactme" data-toggle="tab">Contact Me</a></li>
+              </ul>
+
+              <div id="myTabContent" class="tab-content">
+
+		<div class="tab-pane fade active in" id="updates">
+                  <div class="panel panel-primary span4">
+                    <div class="panel-body">
+                      <figure>
+			<img src="img/git8.png"/>
+                      </figure>
+                      <blockquote >
+			<p class="text-info">"..in a quest for the answer to our existence,
+                          I'd rather be an inter-galactic hitchhiker."
+			</p>
+			<i>[slow claps from the audience]</i>
+			<small>arcolife, <cite title="XYZ Summit'50">While receiving Nobel Prize for BS in 2050</cite></small>
+                      </blockquote>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-primary span4">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">What have I been upto?</h3>
+                    </div>
+                    <div class="panel-body">
+                      <h4>Currently</h4>
+                      <ul>
+			<li>Performance Engineer @ <a href="http://www.redhat.com/en">Red Hat</a> India Pvt. Ltd (Bangalore)</li>
+                      </ul>
+                      <h4>Recently</h4>
+                      <ul>
+			<li>Associate Performance Engineer @ <a href="http://www.redhat.com/en">Red Hat</a> India Pvt. Ltd (Bangalore)</li>
+			<li>Think Tank member @ <a href="http://spaceseeed.com">Spaceseeed</a></li>
+			<li>Contributing Developer @ <a href="http://scistarter.com/">SciStarter</a> #OpenData #CitizenScience</li>
+			<li>Collaborator @ <a href="https://github.com/HackerEcology/">HackerEcology</a> #upcoming #initiative</li>
+			<li>Software Developer Intern, <a href="http://takezero.in/">TakeZero</a>, TLABS, Noida (India)</li>
+			<li><a href="http://openlab.web.cern.ch/about/people/archit-sharma">Summer Student</a>,
+                          <a href="http://cern.ch">CERN</a> OpenLab, CERN Labs, Geneva (Switzerland)
+			</li>
+			<li>Software Engineering Intern, <a href="http://www.redhat.com/en">Red Hat</a> Software Services, Pune (India)</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-primary span3">
+                    <div class="panel-body">
+                      <p>
+			<a class="twitter-timeline" href="https://twitter.com/arcolife"
+			   data-widget-id="285460484210171904" width="300" height="400">
+			  My Tweets
+			</a>
+			<script>
+			 !function(d,s,id){
+			   var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+			   if(!d.getElementById(id)){
+                             js=d.createElement(s);
+                             js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+                             fjs.parentNode.insertBefore(js,fjs);
+			   }}(document,"script","twitter-wjs");
+			</script>
+                      </p>
+                    </div>
+                  </div>
+
+
+		</div>
+
+		<div class="tab-pane fade" id="bio">
+                  <p><strong>What do I do?</strong><br/>
+                    <i>Primary expertise:</i> Software Development & Performance engineering.<br/>
+                    <i>Secondary skills:</i> Web Development, Data Analysis & Visualization, & Developer Operations Engineering<br/>
+                  </p>
+
+                  <p style="text-align:auto"><strong>Traceback:</strong>
+                    <ul>
+                      <li>Currently one of the team leads for <a href="https://www.redhat.com/en/technologies/management/cloudforms">Red Hat product - Cloudforms</a>
+			performance engineering, handling horizontal and vertical
+			scaling across various cloud provider integrations - RHV, OpenShift and vSphere. Also running build to build analysis
+			for multiple workload scenarios, longevity tests for edge cases, UI performance optimizations and handling priority customer performance issues
+			in close coordination with Cloudforms engineering team.
+                      </li>
+                      <li>Recently, member of the team responsible for giving recommendations around the
+			<a href="https://www.redhat.com/en/technologies/management/satellite">Red Hat product - Satellite</a>’s performance,
+			at scale and co-authored a perf brief on Satellite 6.2.
+                      </li>
+                      <li>I also cover data processing, middlewares, shell scripting, containerization, ETL, and visualizations,
+			to pinpoint issues, using data from telemetry, configurations and logs.
+                      </li>
+                    </ul>
+                  </p>
+
+                  <p style="text-align:auto"><strong>About:</strong><br/>
+		    Archit Sharma is a Performance Engineer (R&D) as well as a Software Developer who works at Red Hat and is leading a team that covers scalability of Cloudforms (ManageIQ) with Openshift/Openstack/vSphere, infrastructure automation/planning, knowledge-base driven product configuration recommendations, predictive modeling/analysis over performance data. All in all, he loves to derive insights from data generated by monitoring pipelines [Telemetry, Logs, Configs].
+		    
+		    He has contributions to various open source projects, including Grafana, sos-report, scikit-learn (trying!) and has developed a couple of his own, like Sarjitsu (for analyzing SAR data) and Perf Script Postprocessor (for KVM BlockIO events' latency analysis).
+
+		    His current contributions to github/redhat-performance/cfme-performance include workloads, middlewares and ansible scripts for infrastructure orchestration around ManageIQ. He has also contributed to Red Hat's in-house projects like Pbench, satellite-performance, SA tools, Multi-VM/Client MariaDB benchmarking with sysbench for different Async I/O modes, and so on.. (github/redhat-performance and github/distributed-system-analysis).   
+
+		    Archit has presented/participated at various conferences like DevConf'16 (Czech Republic), Red Hat Summit'15 (Boston), PyCon and KDD CoDS - ACM. Until recently, he was also a hackathon junkie and has attended Docker Global Hackathon [Bangalore, state winner x 2], CERN Webfest [first in Data Visualization], DoraHacks [China - remote, runner up] and Devsprint [India, PyCon'15]. He was also a summer student at CERN OpenLab (Geneva) and has co-organized several Python, Linux, DevOps and Docker local meetups. 
+                  </p>
+		</div>
+
+		<div class="tab-pane fade" id="experience">
+                  <a href="img/experience.png">Click here</a> to view in full size.
+                  <p><img src="img/experience.png"/></p>
+                  <p>
+                    <i>Work Experience (upto August'15)</i> | Courtesy: <a href="http://vizualize.me/arcolife">Visualize.me</a>
+                  </p>
+		</div>
+
+		<div class="tab-pane fade" id="projects">
+                  Interests: Machine Learning, Natural Language Processing and Algorithm Design & Development.<br/>
+
+                  <div class="panel panel-primary span5">
+                    <div class="panel-body">
+                      <ul>
+			<h4>Current projects</h4>
+			<li><a href="https://github.com/distributed-system-analysis/sarjitsu">Containerized setup for visualizing system's SAR data</a></li>
+			<li><a href="https://github.com/redhat-performance/satperf/tree/latest">Satellite Performance Benchmark</a></li>
+			<li><a href="https://github.com/distributed-system-analysis/pbench">A benchmarking and performance analysis framework</a></li>
+			<li><a href="https://github.com/arcolife/megatron">Graphite-backed Grafana dashboards => ElasticSearch-backed dbs</a></li>
+			<li><a href="https://github.com/sosreport/sos/pull/866">Collectd plugin for sosreports</a></li>
+			<li><a href="https://github.com/arcolife/datascience-adventures">My Data Science Adventures</a></li>
+			<li><a href="http://arcolife.github.io/codeRiddles/">CodeRiddles: Programming milestones</a></li>
+
+			<h4>Recent Projects</h4>
+			<li><a href="https://github.com/arcolife/multivm_db_bench">Automation scripts for sysbench on multiple VMs</a></li>
+			<li><a href="https://github.com/arcolife/latency_analyzer/">Boilerplate code for IO event latency analysis.</a></li>
+			<li><a href="https://github.com/arcolife/perf-script-postprocessor">Delta Processor for Perf-Tools</a></li>
+			<li><a href="https://github.com/arcolife/kvm_io">KVM BlockIO event tracing and benchmarking</a></li>
+			<li><a href="https://github.com/arcolife/es-graphite-shim">ElasticSearch shim that mocks Graphite API</a></li>
+
+			<h4>Old Projects</h4>
+			<li><a href="http://arcolife.github.io/scholarec">scholarec: A Recommendation Engine</a></li>
+			<li><a href="http://arcolife.github.io/op-con">Opinion Construe: Twitter Opinion Mining</a></li>
+			<li><a href="http://arcolife.github.io/datahack/">Datahack: Infant Mortality Rate Visualized</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel panel-primary span5">
+                    <div class="panel-body">
+                      <ul>
+			<h4>Hackathon Archives</h4>
+			<li><a href="http://arcolife.github.io/dockerComp/">DockerComp: Dockerized Distributed Computing</a></li>
+			<li><a href="http://arcolife.github.io/applift-hack-team-vicarious/">applift-hack-team-vicarious</a></li>
+			<li><a href="http://arcolife.github.io/popular-physics">Popular-Physics: CERN Webfest 2013</a></li>
+			<li><a href="https://github.com/arcolife/call-center/">A minimalist call center application!</a></li>
+			<li><a href="http://minimalist.herokuapp.com">homepage-gen: Minimalistic Homepage Generator</a></li>
+			<li><a href="https://github.com/HackerEcology/qrator/">qrator: News feed scraper</a></li>
+			<h4>Online presentations</h4>
+			<li><a href="https://speakerdeck.com/arcolife/analyzing-latency-of-io-events">Analyzing Latency of IO events</a></li>
+			<li><a href="https://speakerdeck.com/arcolife/fedora-21-release-party-talk-by-arcolife">Fedora 21 Release Party talk</a></li>
+			<li><a href="https://www.youtube.com/watch?v=lIp2nrOnKFs">dockerComp</a></li>
+			<li><a href="https://speakerdeck.com/arcolife/scholarec">ScholaRec</a></li>
+			<li><a href="https://speakerdeck.com/arcolife/popular-physicists-in-history">Popular Physicists in History</a></li>
+			<h4>Incomplete Projects</h4>
+			<li>
+                          <a href="https://fedoraproject.org/wiki/GSOC_2014/Student_Application_arcolife#Proposal_for_Google_Summer_of_Code_2014">
+                            Afterthought: A dependency for automation/deployment tools.
+                          </a>
+			</li>
+			<li><a href="https://github.com/HackerEcology/SuggestU">SuggestU: Generic Suggestion Platform</a></li>
+			<li><a href="https://github.com/arcolife/picTagular">picTagular: Tag your screenshots!</a></li>
+
+                      </ul>
+                    </div>
+                  </div>
+		</div>
+
+		<div class="tab-pane fade" id="foss">
+                  <table class="table table-striped table-hover ">
+                    <thead>
+                      <tr>
+			<th>#</th>
+			<th>Organization</th>
+			<th>Projects / Efforts</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+			<td>1</td>
+			<td>Red Hat</td>
+			<td>
+                          Distributed System Analysis:
+                          <ul>
+                            <li>Pbench</li>
+                            <li>Sarjitsu</li>
+                            <li>Perf script postprocessor</li>
+                            <li>BlockIO event Latency Analysis</li>
+                            <li>Elasticsearch-Graphite Shim</li>
+                            <li>KVM IO event latency analysis</li>
+                            <li>MultiVM & MultiClient MySQL benchmarking with
+                              sysbench for different AIO modes
+                            </li>
+                          </ul>
+                          Satellite:
+                          <ul>
+                            <li>Satperf</li>
+                          </ul>
+			</td>
+                      </tr>
+                      <tr>
+			<td>2</td>
+			<td>Grafana</td>
+			<td>Grafana addons:
+                          <ul>
+                            <li>Nested docs with Elasticsearch as a data source</li>
+                            <li>Timeshift discussion with Meta Queries</li>
+                            <li>Templates fixes</li>
+                          </ul>
+			</td>
+                      </tr>
+                      <tr>
+			<td>3</td>
+			<td>Sosreport</td>
+			<td>Collectd sos plugin</td>
+                      </tr>
+                      <tr>
+			<td>4</td>
+			<td>Ansible</td>
+			<td>Bug reports</td>
+                      </tr>
+                      <tr>
+			<td>5</td>
+			<td>Scikit-learn</td>
+			<td>Docstrings</td>
+                      </tr>
+                      <tr>
+			<td>6</td>
+			<td>Python wikipedia wrapper</td>
+			<td>Packaging fixes</td>
+                      </tr>
+                      <tr>
+			<td>7</td>
+			<td>Fedora Project</td>
+			<td>Mininet's packaging</td>
+                      </tr>
+                    </tbody>
+                  </table>
+		</div>
+
+		<div class="tab-pane fade hero-unit" id="academics">
+                  <p>Batch: 2010-14<br/>
+                    Bachelors, Computer Science & Engineering, Amity University, India.
+                  </p>
+                  <p>
+                    While in college, I have mostly coordinated events & activities
+                    for Artificial Intelligence Club (AI club) and Linux Club (ALiAS).
+                  </p>
+                  <a href="img/academic.png">Click here</a> to view in full size.
+                  <p><img src="img/academic.png"/></p>
+                  <p>
+                    Courtesy: <a href="http://vizualize.me/arcolife">Visualize.me</a>
+                  </p>
+		</div>
+
+		<div class="tab-pane fade" id="hobbies">
+                  <p>
+                    Let's meet up!
+                    <ul>
+                      <li>Guitarist by evening; Scholar by night; Socrates by dawn.</li>
+                      <li>Blogging about life, philosophy, social issues, technology and all kinds of introspective/retrospective rubbish. (checkout 'Blogs and Social' tab).</li>
+                      <li>Long bike/bicycle rides and impromptu hiking trips.</li>
+                      <li>Running, Football, Badminton, <a href="https://chess24.com/en/profile/arcolife">Chess</a>, Carrom, FIFA, Fuseball and Table Tennis.</li>
+                    </ul>
+                  </p>
+		</div>
+
+		<div class="tab-pane fade" id="blogs">
+                  <h3>Social Networks / Online Presence</h3>
+                  <ul class="nav nav-pills">
+                    <li class="active"><a href="https://keybase.io/archit">Click here to verify my profiles on <span class="badge">Keybase.io</span></a></li>
+                  </ul>
+                  <table class="table table-striped table-hover ">
+                    <thead>
+                      <tr>
+			<th>#</th>
+			<th>Type</th>
+			<th>Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+			<td>1</td>
+			<td>Twitter</td>
+			<td><a href="http://twitter.com/arcolife" class="btn">Converse</a></td>
+                      </tr>
+                      <tr>
+			<td>2</td>
+			<td>LinkedIn</td>
+			<td><a href="http://in.linkedin.com/in/arcolife" class="btn">Connect</a></td>
+                      </tr>
+                      <tr class="info">
+			<td>3</td>
+			<td>Github</td>
+			<td><a href="http://code.arcolife.in/" class="btn">Get crackin'</a></td>
+                      </tr>
+                      <tr class="default">
+			<td>4</td>
+			<td>Facebook</td>
+			<td><a href="https://www.facebook.com/caftlegs" class="btn">Socialize</a></td>
+                      </tr>
+                      <tr class="success">
+			<td>5</td>
+			<td>Work Blog</td>
+			<td><a href="http://work.arcolife.in" class="btn">Research</a></td>
+                      </tr>
+                      <tr class="active">
+			<td>6</td>
+			<td>Personal Blog</td>
+			<td><a href="http://blog.arcolife.in" class="btn">Read</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+		</div>
+
+		<div class="tab-pane fade" id="contactme">
+                  <table class="table table-striped table-hover ">
+                    <thead>
+                      <tr>
+			<th>#</th>
+			<th>Type</th>
+			<th>Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="danger">
+			<td>1</td>
+			<td>Mobile</td>
+			<td>[INDIA] +91 99 86 374931</td>
+                      </tr>
+                      <tr class="info">
+			<td>2</td>
+			<td>Email</td>
+			<td>archit [DOT] py [AT] gmail [DOT] com</td>
+                      </tr>
+                      <tr class="success">
+			<td>3</td>
+			<td><a href="https://webchat.freenode.net/">Freenode IRC</td>
+                          <td>@arcolife / @archit</td>
+                      </tr>
+                      <tr class="warning">
+                        <td>4</td>
+                        <td>Online CV</td>
+                        <td><a href="http://careers.stackoverflow.com/arcolife" class="btn">Indulge</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div><!--/container-->
+      </div><!--/column 2-->
+    </div>
+  </body>
+  <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+  <footer style="color: #187427">
+    &copy; Archit Sharma. #GithubPages
+  </footer>
+
+</html>

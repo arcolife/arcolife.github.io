@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Blogging | heXoughts - arco's braindumps & musings]]></title>
+  <link href="http://arcolife.github.io/blog/categories/blogging/atom.xml" rel="self"/>
+  <link href="http://arcolife.github.io/"/>
+  <updated>2018-11-13T08:21:11+05:30</updated>
+  <id>http://arcolife.github.io/</id>
+  <author>
+    <name><![CDATA[Archit Sharma]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setting Up Your Own Blog Hosted on Github]]></title>
+    <link href="http://arcolife.github.io/blog/2016/06/12/setting-up-your-own-blog-on-github/"/>
+    <updated>2016-06-12T04:37:14+05:30</updated>
+    <id>http://arcolife.github.io/blog/2016/06/12/setting-up-your-own-blog-on-github</id>
+    <content type="html"><![CDATA[<p>I recently shifted from having a static page as my <a href="http://arcolife.github.io/blog/2016/06/06/first-post/">github.io link</a> to making a blog out of the default .io page for my Github account. I found it pretty cool to be able to push stuff through markdown (although even that formatting is configurable under <code>Rakefile</code> of octopress source code).</p>
+
+<p>So here&rsquo;s a really short post on how to set it up.</p>
+
+<!--more-->
+
+
+<h3>Step 0: Make sure you have a github account and a suitable repo</h3>
+
+<p>Make an account on <a href="https://www.github.com/">this github website</a></p>
+
+<p>..and then, make a new repository on github, called <code>&lt;username&gt;.github.io</code></p>
+
+<p>Reference: I have a repo called: <code>http://github.com/arcolife/arcolife.github.io</code></p>
+
+<h3>Step 1: Get your gear!</h3>
+
+<p>Make sure you have git and ruby installed in your command line environment.</p>
+
+<p>I had the following versions:</p>
+
+<ul>
+<li><p>ruby 2.2.5p319 (2016-04-26 revision 54774) [x86_64-linux]</p>
+
+<p>Although lower versions (such as 1.9) might work too.</p></li>
+<li><p>git version 2.5.5</p></li>
+</ul>
+
+
+<h3>Step 2: Get octopress</h3>
+
+<ul>
+<li>Download the repository under a suitable location on your disk:</li>
+</ul>
+
+
+<pre><code>git clone git://github.com/imathis/octopress.git octopress
+cd octopress/
+</code></pre>
+
+<ul>
+<li>Next, if you run <code>bundle install &amp;&amp; rake install</code>, then IIRC, you&rsquo;d get a failure.
+If not, then the almighty Gods are with you on this lad ..else,
+make a change to <code>group:development</code> in <code>Gemfile</code> by adding the following:</li>
+</ul>
+
+
+<pre><code>  gem 'json_pure', '~&gt; 1.8.3'
+</code></pre>
+
+<p>  This is because when I tried to install the requirements,
+  I got an error and a recommendation to add the above.
+  Refer to <a href="https://github.com/arcolife/arcolife.github.io/blob/source/Gemfile#L16">this file under my repo</a>,
+  if in doubt.</p>
+
+<p>  Be advised that this micro-step may not be necessary in future releases or in your environment.</p>
+
+<ul>
+<li>Now install requirements along with octopress itself:
+<code>
+bundle install &amp;&amp; rake install
+</code></li>
+</ul>
+
+
+<h3>Step 3: Connect your username.github.io with octopress</h3>
+
+<p>Run this:
+<code>
+rake setup_github_pages
+</code></p>
+
+<p>Follow the instructions and supply input as asked.</p>
+
+<p>This would clone and download your repo to a folder called <code>source</code> and change your
+branch from <code>master</code> to <code>source</code>. You should check this with <code>git remove -v</code>.
+I got something like this:</p>
+
+<pre><code>octopress   git://github.com/imathis/octopress.git (fetch)
+octopress   git://github.com/imathis/octopress.git (push)
+origin      https://github.com/arcolife/arcolife.github.io (fetch)
+origin      https://github.com/arcolife/arcolife.github.io (push)
+</code></pre>
+
+<p>and on running <code>git branch</code> it should display <code>* source</code>.</p>
+
+<p>If you then do a <code>git status</code> you&rsquo;d get something like this:</p>
+
+<pre><code>your branch is based on 'origin/master', but the upstream is gone.
+(use "git branch --unset-upstream" to fixup)
+</code></pre>
+
+<p>..which is fine. Let&rsquo;s move on to next step.</p>
+
+<hr />
+
+<p>Side note:
+However, if in case, this fails to change your branch to <code>source</code>,
+i.e, you don&rsquo;t have your username under urls of <code>origin</code> in your output of
+<code>git remote -v</code> ..then you&rsquo;d have to do this step manually like this:</p>
+
+<pre><code>git remote add origin git@github.com:arcolife/arcolife.github.com.git
+git branch -m master source
+git branch
+</code></pre>
+
+<p>This should now display <code>* source</code>.</p>
+
+<h3>Step 4: Try running in preview mode</h3>
+
+<pre><code>rake preview
+</code></pre>
+
+<p>This should start a server on <code>http://localhost:4000</code> and you should be able to
+view a default colorful octopress page.</p>
+
+<h3>Step 5 (optional): Deciding where to keep the default blog</h3>
+
+<p><a href="http://octopress.org/docs/deploying/subdir/">Check this out</a></p>
+
+<p>Mine is with default settings so I haven&rsquo;t tried this out.</p>
+
+<h3>Step 6: Push your changes to github and deploy the blog</h3>
+
+<pre><code>rake generate
+
+git add .
+git commit -am "init github based octopress"
+git push origin source
+
+rake deploy
+</code></pre>
+
+<p>This might take upto 5 mins sometimes or may be a matter of
+few seconds depending on how the update job runs and the load
+on github servers. Refresh and check in intervals.</p>
+
+<h3>Step 7: A new post</h3>
+
+<pre><code>rake new_post["My first post"]
+</code></pre>
+
+<p>This would generate a new post and display a message like this:</p>
+
+<pre><code>mkdir -p source/_posts
+Creating new post: source/_posts/2016-06-12-my-first-post.markdown
+</code></pre>
+
+<p>Edit that file and write up a post using markdown format.
+Repeast steps in <code>Step 6</code> to deploy.</p>
+
+<h3>Step 8: Tweaks quickstart</h3>
+
+<p>Some of these tips are well covered under <a href="http://octopress.org/docs/blogging/">Octopress' blogging basics</a>
+and under <a href="https://github.com/octopress/octopress#configuration">octopress' github README config section</a>
+but just pointing them out for quickstart references:</p>
+
+<h4>Configure blog name and other basics</h4>
+
+<p>Open <code>_config.yml</code> and edit the following:</p>
+
+<pre><code>title:
+subtitle:
+author:
+</code></pre>
+
+<p>repeat steps from <code>Step 6</code> to see changes live on your username.github.io</p>
+
+<h4>Linking your octopress blog with social networks</h4>
+
+<p>Edit <code>_config.yml</code> and edit the following (change your usernames accordingly):</p>
+
+<ul>
+<li>Github:</li>
+</ul>
+
+
+<pre><code>github_user: arcolife
+github_repo_count: 5
+</code></pre>
+
+<ul>
+<li>Google Plus:</li>
+</ul>
+
+
+<pre><code>googleplus_user: +ArchitSharma1337
+</code></pre>
+
+<ul>
+<li>Twitter: (read more below under <code>Adding asides</code> section on adding twitter feed)</li>
+</ul>
+
+
+<pre><code>twitter_user: arcolife
++twitter_show_replies: false
++twitter_follow_button: true
++twitter_show_follower_count: false
+</code></pre>
+
+<ul>
+<li>For facebook like on posts:</li>
+</ul>
+
+
+<pre><code>facebook_like: true
+</code></pre>
+
+<h4>Images in post</h4>
+
+<p>If you wanna insert images, add them under <code>source/images</code> and you could either:</p>
+
+<ul>
+<li><p>Refer to their path either like this:</p>
+
+<pre><code>![Sample image caption](https://raw.githubusercontent.com/username/username.github.io/master/images/sample.png)
+</code></pre>
+
+<p>Replace username with your github username, and <code>images/sample.png</code> with whatever path your images are in,
+under <code>source/</code></p></li>
+<li><p>Or give a relative path like this:</p>
+
+<pre><code>![Image caption](../images/sample.png)
+</code></pre></li>
+</ul>
+
+
+<p>The second option is hackish &amp; works based on your directory structure.
+<a href="http://stackoverflow.com/a/17089293/1332401">There are other ways of doing this as well</a></p>
+
+<h4>Adding <code>asides</code> (panel contents)</h4>
+
+<p>Edit <code>_config.yml</code> as follows:</p>
+
+<pre><code>blog_index_asides:  [custom/asides/about.html, asides/recent_posts.html, asides/github.html, asides/googleplus.html]
+post_asides:        [custom/asides/about.html, asides/recent_posts.html, asides/github.html,  asides/googleplus.html]
+</code></pre>
+
+<p>You could add your custom asides / make changes to layout from files under <code>source/_includes</code> folder.
+For example, to add your twitter feed, you&rsquo;d wanna take a look <a href="http://blog.jmac.org/2013-03-30-putting-twitter-back-into-octopress.html">at this blog post</a> which tells you how to add that and why it was removed as a default.</p>
+
+<h4>Google analytics</h4>
+
+<p>This is to track location/count of visitors to your website. Open <code>_config.yml</code> and edit the following:</p>
+
+<pre><code>google_analytics_tracking_id: &lt;add your ID here&gt;
+</code></pre>
+
+<p>You&rsquo;d need to have an account on <a href="https://analytics.google.com/">this google analytics website</a>
+to get an ID. There&rsquo;s a limit on number of free IDs allotted to your google account. Check out
+the T&amp;Cs on their website.</p>
+
+<h4>Comments in blog posts</h4>
+
+<p>If you wanna enable <code>Disqus</code> based comments, you need to have an account on <a href="https://www.disqus.com/admin/">this disqus admin website</a> and add the url <code>&lt;username&gt;.github.io</code> under trusted domains on <code>https://&lt;disqus admin username&gt;.disqus.com/admin/settings/advanced/</code> and you need to configure your <code>community</code> name (which is nothing but a setting for your site) under <code>https://&lt;disqus admin username&gt;.disqus.com/admin/settings/general/</code></p>
+
+<h4>Adding a static website under your github website</h4>
+
+<p>If you&rsquo;d like to link up a static content (fully supporting it&rsquo;s own html/css layout),
+just add them under <code>source/&lt;new_dir&gt;/</code> and you should be able to access that
+under <code>username.github.io/&lt;new_dir&gt;</code></p>
+
+<p>Then, go ahead and edit <code>_config.yml</code> and edit the following:</p>
+
+<pre><code>disqus_short_name: arcolife
+disqus_show_comment_count: true
+</code></pre>
+
+<h4>Working on drafts, disabling comments and adding categories</h4>
+
+<p>When you&rsquo;re writing a blog post, change true/false or add categories
+to your _posts/<post>.md as shown below:</p>
+
+<pre><code>comments: true
+published: true
+categories: [RHEL, Linux, Microservices]
+</code></pre>
+
+<p>A push to github with <code>published: false</code> means the markdown has been safely
+committed to source branch on your repo, but the post is not publicly visible.
+This way you could keep working on the file and change to true when it&rsquo;s ready.</p>
+
+<hr />
+
+<p>All that said, I still haven&rsquo;t added an &lsquo;about&rsquo; section to my post,
+or moved it under a custom <code>blog/</code> folder successfully. Or changed the
+default page to something else or made changes to default theme.
+If you&rsquo;ve done that, please add a comment here on how you did it
+or a link to it if you&rsquo;ve blogged about it. Would save me some time eh! :)</p>
+
+<p>Thats it for now folks!</p>
+
+<p>Share it across, post a comment if you&rsquo;d like to add something
+to this post, or want any edits made or found a flaw in the flow
+or would simply like to let me know if this helped.</p>
+
+<p>Cheers!</p>
+]]></content>
+  </entry>
+  
+</feed>

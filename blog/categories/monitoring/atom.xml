@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Monitoring | heXoughts - arco's braindumps & musings]]></title>
+  <link href="http://arcolife.github.io/blog/categories/monitoring/atom.xml" rel="self"/>
+  <link href="http://arcolife.github.io/"/>
+  <updated>2018-11-13T08:21:11+05:30</updated>
+  <id>http://arcolife.github.io/</id>
+  <author>
+    <name><![CDATA[Archit Sharma]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Monitoring in Satperf: Metrics Collection]]></title>
+    <link href="http://arcolife.github.io/blog/2016/10/05/monitoring-in-satperf-metrics-collection/"/>
+    <updated>2016-10-05T18:21:42+05:30</updated>
+    <id>http://arcolife.github.io/blog/2016/10/05/monitoring-in-satperf-metrics-collection</id>
+    <content type="html"><![CDATA[<p>Satperf utilizes a visualization framework called Grafana, to present graphs.</p>
+
+<h3>Metrics Collected</h3>
+
+<p>An explanation of how the following metrics are placed in the satperf monitoring dashboard, is described in the <a href="#overview">&lsquo;Grafana Dashboard&rsquo;</a> section. If you wanna copy these metrics, refer to <a href="#references">this file [2] in references</a></p>
+
+<!--more-->
+
+
+<ul>
+<li>The panels that <a href="https://www.github.com/redhat-performance/satperf">satperf</a> monitoring module provides:</li>
+</ul>
+
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/collectd/process_panels.png" alt="Figure 1" /></p>
+
+<ul>
+<li>The metrics that <a href="https://www.github.com/redhat-performance/satperf">satperf</a> monitoring module collects for processes:</li>
+</ul>
+
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/collectd/process_metrics.png" alt="Figure 1" /></p>
+
+<h4>Overview<h3 id="overview"></a></h4>
+
+<p>The Grafana dashboard is divided into rows and each row has either a single or multiple panels.
+Each of those panels query specific metrics. Here&rsquo;s how those metrics in the template <a href="#references">[1]</a> are grouped:</p>
+
+<ul>
+<li>Grafana variable templating</li>
+<li>Rows > Panels > Queries</li>
+</ul>
+
+
+<p>The rows are named as following:</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/grafana/rows.png" alt="Figure 1" /></p>
+
+<p>A sample &ldquo;CPU ALL&rdquo; row with all panels:</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/grafana/rows_panels.png" alt="Figure 2" /></p>
+
+<p>On clicking edit in one of the panels in that row, we get the metric query frame, like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/grafana/panel_edit.png" alt="Figure 3" /></p>
+
+<p>The templating <code>$Cloud</code>, <code>$Node</code> etc.. are included at the top of the dashboard, like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/grafana/templating.png" alt="Figure 4" /></p>
+
+<hr />
+
+<p><h3 id="references"></a></p>
+
+<h3>Grafana Dashboard</h3>
+
+<ol>
+<li>Satperf Dashboard template <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/dashboard-generic/templates/satellite6_general_system_performance.json.j2">can be obtained here</a></li>
+<li>Variables replaced in that template <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/dashboard-generic/vars/main.yml">are in this file</a></li>
+</ol>
+
+
+<h3>Satperf Dashboard templating explained<h3 id="templating"></a></h3>
+
+<p>So in the jinja template <a href="#references">[1]</a>, we have multiple &ldquo;title&rdquo;(s) under &ldquo;rows&rdquo; section and variables from <a href="#references">[2]</a> are replaced inside the template as illustrated in following piece of that jinja template:</p>
+
+<p>
+```
+{# Loop over per-process options here #}
+    {% for metrics in per_process_metrics %}
+      {
+        &ldquo;collapse&rdquo;: true,
+        &ldquo;editable&rdquo;: true,
+        &ldquo;height&rdquo;: &ldquo;200px&rdquo;,
+        &ldquo;panels&rdquo;: [</p>
+
+<pre><code>  {% for panel in per_process_panels[item.process_list_name] %}
+</code></pre>
+
+<p>```
+</p>
+
+<p>Additionally, <code>"title": "CPU All"</code> in the dashboard template <a href="#references">[1]</a> refers to one row of the dashboard.</p>
+
+<hr />
+
+<p>Note: This post is a spin off from the main satperf project.</p>
+
+<ul>
+<li>To take a look at how <a href="https://www.github.com/redhat-performance/satperf">satperf</a> works, <a href="http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/">refer to this post</a></li>
+<li>To learn how to setup monitoring for the parameters covered in this post, <a href="http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/">refer to this post</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Satperf: A Satellite Performance Benchmarking and Automation Tool]]></title>
+    <link href="http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/"/>
+    <updated>2016-08-22T18:18:16+05:30</updated>
+    <id>http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool</id>
+    <content type="html"><![CDATA[<h3>1. Intro</h3>
+
+<p>Satperf (<a href="github.com/redhat-performance/satperf">link</a>) is a <a href="https://access.redhat.com/products/red-hat-satellite">Red Hat Satellite</a> Performance Benchmarking &amp; Automation tool that makes it super easy to quickly setup your own environment with satellite components and start running workloads. It uses ansible playbooks to manage remote execution and has built-in modules for various roles that Satellite Web UI has to offer. These are carried out with the use of hammer commands (<a href="https://access.redhat.com/documentation/en/red-hat-satellite/6.2/paged/hammer-cli-guide/chapter-1-introduction-to-hammer">read more on Hammer</a>) as an equivalent of Satellite API.</p>
+
+<!--more-->
+
+
+<p>Briefly, it does the following activities:</p>
+
+<ul>
+<li>Satellite installation and monitoring</li>
+<li>uploads manifest, updates repo</li>
+<li>concurrently syncs multiple Repositories from Repo Server</li>
+<li>creates lifecycle environments</li>
+<li>creates capsules</li>
+<li>concurrently syncronizes multiple capsules</li>
+<li>..etc</li>
+</ul>
+
+
+<p>Satperf runs modules through ansible playbooks, briefly described below under &lsquo;Ansible Playbooks in Satperf` section.</p>
+
+<h3>2. Satperf setup</h3>
+
+<p>This is to get the satellite installation + monitoring tools up and running.</p>
+
+<p>Although there&rsquo;s a README included with the project, let&rsquo;s briefly go through steps needed and get an install up and running.</p>
+
+<p>It isn&rsquo;t packaged right now, so first, clone <a href="https://www.github.com/redhat-performance/satperf">this satperf repo</a>.</p>
+
+<h4>2.a. PREREQUISITES</h4>
+
+<p>From project root, run: <code>$ source ./setup</code>, follow the output and act accordingly (install packages / activate virtualenv).</p>
+
+<p>Ensure that satperf help command succeeds: <code>$ ./satperf.py -h</code></p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/satperf/help_menu.png" alt="Figure 1" /></p>
+
+<h4>2.b CONFIGURATION</h4>
+
+<p>The above step should get the setup ready for configurations. Now, configure following files in the manner illustrated:</p>
+
+<ol>
+<li>Add configurations specific to Ansible</li>
+</ol>
+
+
+<p><figure class='code'><figcaption><span>conf/ansible.cfg </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cfg'><span class='line'><span class="na">log_path</span> <span class="o">=</span> <span class="s">~/ansible.log</span>
+</span><span class='line'><span class="na">private_key_file</span> <span class="o">=</span> <span class="s">~/.ssh/id_rsa_perf</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<ol>
+<li>Add [FQDN / hostnames / IP Addresses] for your installation.
+Follow the ansible inventory file pattern, as shown by sample contents of this file.</li>
+</ol>
+
+
+<p><figure class='code'><figcaption><span>conf/hosts.ini </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="k">[capsules]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span><span class='line'><span class="k">[satellite6]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span><span class='line'><span class="k">[graphite]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span><span class='line'><span class="k">[grafana]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<ol>
+<li><code>conf/satperf.conf</code>: Add configurations specific to satperf.</li>
+</ol>
+
+
+<p><figure class='code'><figcaption><span>conf/satperf.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='cfg'><span class='line'><span class="k">[Settings]</span>
+</span><span class='line'><span class="na">hosts</span> <span class="o">=</span> <span class="s">conf/hosts.ini&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;h1&gt;satperf</span> <span class="err">log</span> <span class="err">file&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">&lt;p&gt;log_file</span> <span class="o">=</span> <span class="s">log/satperf.log&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;h1&gt;Logfile</span> <span class="err">size</span> <span class="err">in</span> <span class="err">Bytes&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">&lt;p&gt;log_file_size</span> <span class="o">=</span> <span class="s">10000&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;p&gt;[Monitoring]&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="err">&lt;h1&gt;for</span> <span class="err">collectd</span> <span class="err">multi/single-host</span> <span class="err">installations</span> <span class="err">one/all</span> <span class="err">of</span> <span class="err">satellite6:capsules&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">&lt;h1&gt;hosts</span> <span class="o">=</span> <span class="s">satellite6&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="na">&lt;p&gt;hosts</span> <span class="o">=</span> <span class="s">satellite6:capsules</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>   For now, leave the sections <code>[RHN], [Satellite], [Pbench]</code> untouched.
+   In this post, we&rsquo;re only configuring satellite monitering module of satperf.</p>
+
+<h4>2.c SATELLITE INSTALLATION</h4>
+
+<p>If you already have the satellite setup running, skip below to &lsquo;MONITORING INSTALLATION&rsquo;.</p>
+
+<p>Run <code>$ ./satperf.py -s</code></p>
+
+<p>You&rsquo;d be asked the following, press [Enter] or type &lsquo;n&rsquo; to skip, if the component&rsquo;s already installed, or you don&rsquo;t want it.</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'> <span class="o">=======</span>&gt; Installing Satellite..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt; <span class="o">=======</span>&gt; Installing Capsules..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Ignore any other components shown in menu, if so.</p>
+
+<p>Although we&rsquo;ve tested this internally and it works, but since this is currently WIP, take a look at logs if something fails, or feel free to <a href="https://github.com/redhat-performance/satperf/issues">open an issue upstream</a>.</p>
+
+<h4>2.c MONITORING INSTALLATION</h4>
+
+<p>Run <code>$ ./satperf.py -m</code></p>
+
+<p>You&rsquo;d be asked the following, press [Enter] or type &lsquo;n&rsquo; to skip, if the component&rsquo;s already installed, or you don&rsquo;t want it.</p>
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'> <span class="o">=======</span>&gt; Installing Collectd..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt; <span class="o">=======</span>&gt; Installing Graphite..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt; <span class="o">=======</span>&gt; Installing Grafana..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Although we&rsquo;ve tested this internally and it works, but since this is currently WIP, take a look at logs if something fails, or feel free to <a href="https://github.com/redhat-performance/satperf/issues">open an issue upstream</a>.</p>
+
+<h4>2.d FINAL STEPS (WIP)</h4>
+
+<p>Build the dashboards viewable, through Grafana, by running <code>$ ./satperf.py -i</code></p>
+
+<p>WIP status: facing an error in this step, similar to <a href="https://github.com/bayandin/webpagetest-private/issues/1">this one</a></p>
+
+<hr />
+
+<h3>Ansible Playbooks in Satperf</h3>
+
+<p>2 major categories:</p>
+
+<ol>
+<li><p>Satellite</p>
+
+<ul>
+<li>Setup (either AWS or normal environements)
+
+<ul>
+<li>Satellite</li>
+<li>Capsules</li>
+<li>Docker hosts (N content hosts per docker host)</li>
+</ul>
+</li>
+<li>Satutils</li>
+<li>healthcheck</li>
+</ul>
+</li>
+<li><p>Monitoring</p>
+
+<ul>
+<li>Collectd</li>
+<li>Graphite</li>
+<li>Grafana</li>
+</ul>
+</li>
+</ol>
+
+
+<hr />
+
+<h3>Playbook: Monitoring</h3>
+
+<p>For a description of metrics we collect about Satellite installation, <a href="http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/">refer to this post</a></p>
+
+<h4>Collectd: role description</h4>
+
+<p>Installs collectd on either/all of: satellite / capsule / docker-hosts</p>
+
+<h4>Graphite: role description</h4>
+
+<p>Installs Graphite time-series database for metric storage of collected metrics on the configured graphite host</p>
+
+<h4>Grafana: role description</h4>
+
+<p>Installs Grafana time-series metric visualization framework, on the configured grafana host</p>
+
+<hr />
+
+<h3>Playbook: Satellite</h3>
+
+<h4>Setup: role description</h4>
+
+<ul>
+<li>common</li>
+<li>rhsm</li>
+<li>setup</li>
+<li>pbench_client (WIP)</li>
+<li>satellite-populate</li>
+</ul>
+
+
+<h4>Satutils: role description (WIP)</h4>
+
+<ul>
+<li>backup</li>
+<li>upload-manifest</li>
+<li>restore</li>
+<li>add-product</li>
+<li>create-lifecycle</li>
+<li>enable-content</li>
+<li>content-view-create</li>
+<li>content-view-publish</li>
+<li>content-view-promote</li>
+<li>sync-content</li>
+<li>sync-capsule</li>
+<li>register</li>
+<li>status_check</li>
+</ul>
+
+
+<h4>Health check: role description (WIP)</h4>
+
+<p>We plan to integrate <a href="https://github.com/boogiespook/sat6_healthCheck/">this github project - sat6_healthCheck</a></p>
+
+<hr />
+
+<h3>Blog roll: More on Satellite itself</h3>
+
+<p>From <a href="https://access.redhat.com/announcements/2470701">Satellite&rsquo;s latest release</a>:</p>
+
+<p>Red Hat Satellite 6.2 is now generally available, and includes the following major enhancements:</p>
+
+<ul>
+<li>Enhanced container management with RHEL Atomic</li>
+<li>New remote configuration management for managed hosts</li>
+<li>bootstrap.sh support for configuration management and host migration</li>
+<li>The ability to change disconnected environments to connected</li>
+<li>Inter-Satellite synchronization for content</li>
+<li><p>PXE-less discovery for existing systems</p></li>
+<li><p><a href="https://access.redhat.com/documentation/en/red-hat-satellite/6.2/single/release-notes">Release Notes</a></p></li>
+<li><p><a href="https://access.redhat.com/documentation/en/red-hat-satellite/6.2/single/installation-guide#upgrading_satellite_server_and_capsule_server">Satellite Installation Guide</a></p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Setting Up Collectd Plugins With Graphite and Grafana]]></title>
+    <link href="http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/"/>
+    <updated>2016-08-22T15:48:43+05:30</updated>
+    <id>http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana</id>
+    <content type="html"><![CDATA[<h3>Intro</h3>
+
+<p>Installing collectd could be trivial, although setting up monitoring for continuous time-series metric collection should be simpler. This post is aimed at helping sysadmins setup collectd and connect it to a graphite instance, so that all those metrics could later be viewed from Grafana instance.</p>
+
+<!--more-->
+
+
+<p>Note:</p>
+
+<p>This post is a spin off from the main satperf project. To take a look at how <a href="https://www.github.com/redhat-performance/satperf">satperf</a> works, <a href="http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/">refer to this post</a></p>
+
+<h3>The process</h3>
+
+<h4>Step 1</h4>
+
+<p>Install collectd for your system, Install Graphite server elsewhere (recommended: separate machine).</p>
+
+<hr />
+
+<h4>Step 2</h4>
+
+<p>When that&rsquo;s installed, take a look at your <code>/etc/collectd.conf</code> and add plugins from the list below, as suitable</p>
+
+<pre><code># Allow collectd to log
+LoadPlugin syslog
+
+# Loaded Plugins:
+LoadPlugin write_graphite
+LoadPlugin cpu
+LoadPlugin df
+LoadPlugin disk
+LoadPlugin interface
+LoadPlugin irq
+LoadPlugin load
+LoadPlugin memory
+LoadPlugin numa
+LoadPlugin processes
+LoadPlugin postgresql
+LoadPlugin swap
+LoadPlugin turbostat
+LoadPlugin unixsock
+LoadPlugin uptime
+</code></pre>
+
+<p>Note:</p>
+
+<ul>
+<li><p>If you&rsquo;re installing this on Red Hat Satellite, you might wanna make additional changes as per <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/collectd-generic/templates/satellite6.collectd.conf.j2">this template in satperf</a></p></li>
+<li><p>For others, you might wanna take a look at the above mentioned link anyway, for it serves as a generic reference for <code>/etc/collectd.conf</code></p></li>
+<li><p>Replace variable names in above referenced satperf&rsquo;s <code>collectd.conf</code> as per following defaults / or change them as suitable:</p></li>
+</ul>
+
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/collectd/table.png" alt="Figure 1" /></p>
+
+<h5>Gotchas (for both Satellite setup as well as normal setup):</h5>
+
+<p>1) 10 refers to 10 seconds</p>
+
+<p>2) end results on graphite-web UI show under Metrics:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='jinja'><span class='line'><span class="cp">{{</span><span class="nv">graphite_prefix</span><span class="cp">}}</span><span class="x">.</span><span class="cp">{{</span><span class="nv">inventory_hostname</span><span class="cp">}}</span><span class="x">.&lt;metrics as per output from plugins&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>3) For candlepin password:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>grep <span class="p">&amp;</span>ldquo<span class="p">;</span>jpa.config.hibernate.connection.password<span class="p">&amp;</span>rdquo<span class="p">;</span> /etc/candlepin/candlepin.conf <span class="p">|</span> awk -F<span class="err">&#39;</span><span class="o">=</span><span class="p">&amp;</span>lsquo<span class="p">;</span> <span class="p">&amp;</span>rsquo<span class="p">;</span><span class="o">{</span>print <span class="nv">$2</span><span class="o">}</span><span class="p">&amp;</span>lsquo<span class="p">;</span><span class="sb">`</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>4) For Satellite Foreman password:
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>grep <span class="p">&amp;</span>ldquo<span class="p">;</span>password<span class="p">&amp;</span>rdquo<span class="p">;</span> /etc/foreman/database.yml <span class="p">|</span> awk <span class="p">&amp;</span>lsquo<span class="p">;</span><span class="o">{</span>print <span class="nv">$2</span><span class="o">}</span><span class="p">&amp;</span>rsquo<span class="p">;</span> <span class="p">|</span> tr -d <span class="p">&amp;</span>lsquo<span class="p">;&amp;</span>ldquo<span class="p">;&amp;</span>rsquo<span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<hr />
+
+<h4>Step 3</h4>
+
+<p>Once this is done, reload collectd server and check logs on graphite server to make sure you&rsquo;re able to receive data</p>
+
+<h4>Other Gotchas:</h4>
+
+<ul>
+<li>Use <code>iptables -F</code> if unable to send collectd metrics</li>
+<li>To graph the other parameters in Grafana, <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/dashboard-generic/templates/satellite6_general_system_performance.json.j2">this satellite generic dashboard file</a>
+
+<ul>
+<li>To simply look at which metrics are touched in above dashboard template, refer to <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/dashboard-generic/vars/main.yml">this satperf vars file</a></li>
+</ul>
+</li>
+<li>FYI, I&rsquo;ve got an <a href="https://github.com/sosreport/sos/pull/866">open PR to add collectd info to sos report, as a plugin</a></li>
+<li>I&rsquo;ll add some screenshots to this post ASAP.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

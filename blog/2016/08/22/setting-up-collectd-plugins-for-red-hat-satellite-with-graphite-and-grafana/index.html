@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Setting Up Collectd Plugins With Graphite and Grafana - heXoughts - arco's braindumps & musings</title>
+  <meta name="author" content="Archit Sharma">
+
+  
+  <meta name="description" content="Intro Installing collectd could be trivial, although setting up monitoring for continuous time-series metric collection should be simpler. This post &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="heXoughts - arco's braindumps & musings" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-78826319-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">heXoughts - arco's braindumps & musings</a></h1>
+  
+    <h2>In my quest for an answer to nature's existence, I wish to be an inter-galactic hitchhiker..</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="arcolife.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Setting Up Collectd Plugins With Graphite and Grafana</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-08-22T15:48:43+05:30'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>3:48 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://arcolife.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Intro</h3>
+
+<p>Installing collectd could be trivial, although setting up monitoring for continuous time-series metric collection should be simpler. This post is aimed at helping sysadmins setup collectd and connect it to a graphite instance, so that all those metrics could later be viewed from Grafana instance.</p>
+
+<!--more-->
+
+
+<p>Note:</p>
+
+<p>This post is a spin off from the main satperf project. To take a look at how <a href="https://www.github.com/redhat-performance/satperf">satperf</a> works, <a href="http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/">refer to this post</a></p>
+
+<h3>The process</h3>
+
+<h4>Step 1</h4>
+
+<p>Install collectd for your system, Install Graphite server elsewhere (recommended: separate machine).</p>
+
+<hr />
+
+<h4>Step 2</h4>
+
+<p>When that&rsquo;s installed, take a look at your <code>/etc/collectd.conf</code> and add plugins from the list below, as suitable</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Allow collectd to log
+</span><span class='line'>LoadPlugin syslog
+</span><span class='line'>
+</span><span class='line'># Loaded Plugins:
+</span><span class='line'>LoadPlugin write_graphite
+</span><span class='line'>LoadPlugin cpu
+</span><span class='line'>LoadPlugin df
+</span><span class='line'>LoadPlugin disk
+</span><span class='line'>LoadPlugin interface
+</span><span class='line'>LoadPlugin irq
+</span><span class='line'>LoadPlugin load
+</span><span class='line'>LoadPlugin memory
+</span><span class='line'>LoadPlugin numa
+</span><span class='line'>LoadPlugin processes
+</span><span class='line'>LoadPlugin postgresql
+</span><span class='line'>LoadPlugin swap
+</span><span class='line'>LoadPlugin turbostat
+</span><span class='line'>LoadPlugin unixsock
+</span><span class='line'>LoadPlugin uptime</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note:</p>
+
+<ul>
+<li><p>If you&rsquo;re installing this on Red Hat Satellite, you might wanna make additional changes as per <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/collectd-generic/templates/satellite6.collectd.conf.j2">this template in satperf</a></p></li>
+<li><p>For others, you might wanna take a look at the above mentioned link anyway, for it serves as a generic reference for <code>/etc/collectd.conf</code></p></li>
+<li><p>Replace variable names in above referenced satperf&rsquo;s <code>collectd.conf</code> as per following defaults / or change them as suitable:</p></li>
+</ul>
+
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/collectd/table.png" alt="Figure 1" /></p>
+
+<h5>Gotchas (for both Satellite setup as well as normal setup):</h5>
+
+<p>1) 10 refers to 10 seconds</p>
+
+<p>2) end results on graphite-web UI show under Metrics:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='jinja'><span class='line'><span class="cp">{{</span><span class="nv">graphite_prefix</span><span class="cp">}}</span><span class="x">.</span><span class="cp">{{</span><span class="nv">inventory_hostname</span><span class="cp">}}</span><span class="x">.&lt;metrics as per output from plugins&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>3) For candlepin password:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>grep <span class="s2">&quot;jpa.config.hibernate.connection.password&quot;</span> /etc/candlepin/candlepin.conf <span class="p">|</span> awk -F<span class="s1">&#39;=&#39;</span> <span class="s1">&#39;{print $2}&#39;</span><span class="sb">`</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>4) For Satellite Foreman password:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>grep <span class="s2">&quot;password&quot;</span> /etc/foreman/database.yml <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> tr -d <span class="s1">&#39;&quot;&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h4>Step 3</h4>
+
+<p>Once this is done, reload collectd server and check logs on graphite server to make sure you&rsquo;re able to receive data</p>
+
+<h4>Other Gotchas:</h4>
+
+<ul>
+<li>Use <code>iptables -F</code> if unable to send collectd metrics</li>
+<li>To graph the other parameters in Grafana, <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/dashboard-generic/templates/satellite6_general_system_performance.json.j2">this satellite generic dashboard file</a>
+
+<ul>
+<li>To simply look at which metrics are touched in above dashboard template, refer to <a href="https://github.com/redhat-performance/satperf/blob/master/playbooks/monitoring/roles/dashboard-generic/vars/main.yml">this satperf vars file</a></li>
+</ul>
+</li>
+<li>FYI, I&rsquo;ve got an <a href="https://github.com/sosreport/sos/pull/866">open PR to add collectd info to sos report, as a plugin</a></li>
+<li>I&rsquo;ll add some screenshots to this post ASAP.</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Archit Sharma</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-08-22T15:48:43+05:30'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>3:48 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/monitoring/'>monitoring</a>, <a class='category' href='/blog/categories/os/'>os</a>, <a class='category' href='/blog/categories/performance/'>performance</a>, <a class='category' href='/blog/categories/rhel/'>rhel</a>, <a class='category' href='/blog/categories/satellite/'>satellite</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/" data-via="arcolife" data-counturl="http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/06/12/setting-up-your-own-blog-on-github/" title="Previous Post: Setting up your own blog hosted on Github">&laquo; Setting up your own blog hosted on Github</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/" title="Next Post: satperf: A Satellite Performance benchmarking and automation tool">satperf: A Satellite Performance benchmarking and automation tool &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/13/test/">Test</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/04/30/recovering-an-encrypted-partition-after-accidentally-overwriting-it-with-fio/">Recovering Encrypted LVM Based Partitions, After Accidentally Overwriting 'Em With 'Fio'!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/03/02/performance-engineering-tils-part-1/">Performance Engineering TILs - Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/02/22/resizing-an-xfs-partition-on-a-thin-provisoned-disk-in-a-rhvm-env/">Resizing an Xfs Partition on a Thin Provisoned Disk in a RHVM Env</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/01/19/number-notetoself-fix-mariadb-selinux-related-errors-fails-to-restart-after-update/">#noteToSelf - Fix MariaDB-selinux Related Errors (Fails to Restart After Update)</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/arcolife">@arcolife</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'arcolife',
+            count: 10,
+            skip_forks: false,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/+ArchitSharma1337?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Archit Sharma -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'arcolife';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/';
+        var disqus_url = 'http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

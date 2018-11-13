@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Satperf: A Satellite Performance Benchmarking and Automation Tool - heXoughts - arco's braindumps & musings</title>
+  <meta name="author" content="Archit Sharma">
+
+  
+  <meta name="description" content="1. Intro Satperf (link) is a Red Hat Satellite Performance Benchmarking &amp; Automation tool that makes it super easy to quickly setup your own &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="heXoughts - arco's braindumps & musings" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-78826319-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">heXoughts - arco's braindumps & musings</a></h1>
+  
+    <h2>In my quest for an answer to nature's existence, I wish to be an inter-galactic hitchhiker..</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="arcolife.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Satperf: A Satellite Performance Benchmarking and Automation Tool</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-08-22T18:18:16+05:30'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>6:18 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://arcolife.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>1. Intro</h3>
+
+<p>Satperf (<a href="github.com/redhat-performance/satperf">link</a>) is a <a href="https://access.redhat.com/products/red-hat-satellite">Red Hat Satellite</a> Performance Benchmarking &amp; Automation tool that makes it super easy to quickly setup your own environment with satellite components and start running workloads. It uses ansible playbooks to manage remote execution and has built-in modules for various roles that Satellite Web UI has to offer. These are carried out with the use of hammer commands (<a href="https://access.redhat.com/documentation/en/red-hat-satellite/6.2/paged/hammer-cli-guide/chapter-1-introduction-to-hammer">read more on Hammer</a>) as an equivalent of Satellite API.</p>
+
+<!--more-->
+
+
+<p>Briefly, it does the following activities:</p>
+
+<ul>
+<li>Satellite installation and monitoring</li>
+<li>uploads manifest, updates repo</li>
+<li>concurrently syncs multiple Repositories from Repo Server</li>
+<li>creates lifecycle environments</li>
+<li>creates capsules</li>
+<li>concurrently syncronizes multiple capsules</li>
+<li>..etc</li>
+</ul>
+
+
+<p>Satperf runs modules through ansible playbooks, briefly described below under &lsquo;Ansible Playbooks in Satperf` section.</p>
+
+<h3>2. Satperf setup</h3>
+
+<p>This is to get the satellite installation + monitoring tools up and running.</p>
+
+<p>Although there&rsquo;s a README included with the project, let&rsquo;s briefly go through steps needed and get an install up and running.</p>
+
+<p>It isn&rsquo;t packaged right now, so first, clone <a href="https://www.github.com/redhat-performance/satperf">this satperf repo</a>.</p>
+
+<h4>2.a. PREREQUISITES</h4>
+
+<p>From project root, run: <code>$ source ./setup</code>, follow the output and act accordingly (install packages / activate virtualenv).</p>
+
+<p>Ensure that satperf help command succeeds: <code>$ ./satperf.py -h</code></p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/source/source/images/satperf/help_menu.png" alt="Figure 1" /></p>
+
+<h4>2.b CONFIGURATION</h4>
+
+<p>The above step should get the setup ready for configurations. Now, configure following files in the manner illustrated:</p>
+
+<ol>
+<li>Add configurations specific to Ansible</li>
+</ol>
+
+
+<figure class='code'><figcaption><span>conf/ansible.cfg </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cfg'><span class='line'><span class="na">log_path</span> <span class="o">=</span> <span class="s">~/ansible.log</span>
+</span><span class='line'><span class="na">private_key_file</span> <span class="o">=</span> <span class="s">~/.ssh/id_rsa_perf</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Add [FQDN / hostnames / IP Addresses] for your installation.
+Follow the ansible inventory file pattern, as shown by sample contents of this file.</li>
+</ol>
+
+
+<figure class='code'><figcaption><span>conf/hosts.ini </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="k">[capsules]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span><span class='line'><span class="k">[satellite6]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span><span class='line'><span class="k">[graphite]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span><span class='line'><span class="k">[grafana]</span>
+</span><span class='line'><span class="err">x.x.x.x</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li><code>conf/satperf.conf</code>: Add configurations specific to satperf.</li>
+</ol>
+
+
+<figure class='code'><figcaption><span>conf/satperf.conf </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='cfg'><span class='line'><span class="k">[Settings]</span>
+</span><span class='line'><span class="na">hosts</span> <span class="o">=</span> <span class="s">conf/hosts.ini</span>
+</span><span class='line'><span class="c1"># satperf log file</span>
+</span><span class='line'><span class="na">log_file</span> <span class="o">=</span> <span class="s">log/satperf.log</span>
+</span><span class='line'><span class="c1"># Logfile size in Bytes</span>
+</span><span class='line'><span class="na">log_file_size</span> <span class="o">=</span> <span class="s">10000</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">[Monitoring]</span>
+</span><span class='line'><span class="c1"># for collectd multi/single-host installations one/all of satellite6:capsules</span>
+</span><span class='line'><span class="c1"># hosts = satellite6</span>
+</span><span class='line'><span class="na">hosts</span> <span class="o">=</span> <span class="s">satellite6:capsules</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>   For now, leave the sections <code>[RHN], [Satellite], [Pbench]</code> untouched.
+   In this post, we&rsquo;re only configuring satellite monitering module of satperf.</p>
+
+<h4>2.c SATELLITE INSTALLATION</h4>
+
+<p>If you already have the satellite setup running, skip below to &lsquo;MONITORING INSTALLATION&rsquo;.</p>
+
+<p>Run <code>$ ./satperf.py -s</code></p>
+
+<p>You&rsquo;d be asked the following, press [Enter] or type &lsquo;n&rsquo; to skip, if the component&rsquo;s already installed, or you don&rsquo;t want it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'> <span class="o">=======</span>&gt; Installing Satellite..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:
+</span><span class='line'>
+</span><span class='line'> <span class="o">=======</span>&gt; Installing Capsules..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ignore any other components shown in menu, if so.</p>
+
+<p>Although we&rsquo;ve tested this internally and it works, but since this is currently WIP, take a look at logs if something fails, or feel free to <a href="https://github.com/redhat-performance/satperf/issues">open an issue upstream</a>.</p>
+
+<h4>2.c MONITORING INSTALLATION</h4>
+
+<p>Run <code>$ ./satperf.py -m</code></p>
+
+<p>You&rsquo;d be asked the following, press [Enter] or type &lsquo;n&rsquo; to skip, if the component&rsquo;s already installed, or you don&rsquo;t want it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'> <span class="o">=======</span>&gt; Installing Collectd..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:
+</span><span class='line'>
+</span><span class='line'> <span class="o">=======</span>&gt; Installing Graphite..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:
+</span><span class='line'>
+</span><span class='line'> <span class="o">=======</span>&gt; Installing Grafana..
+</span><span class='line'>Continue <span class="o">(</span>y/n<span class="o">)</span>?:
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Although we&rsquo;ve tested this internally and it works, but since this is currently WIP, take a look at logs if something fails, or feel free to <a href="https://github.com/redhat-performance/satperf/issues">open an issue upstream</a>.</p>
+
+<h4>2.d FINAL STEPS (WIP)</h4>
+
+<p>Build the dashboards viewable, through Grafana, by running <code>$ ./satperf.py -i</code></p>
+
+<p>WIP status: facing an error in this step, similar to <a href="https://github.com/bayandin/webpagetest-private/issues/1">this one</a></p>
+
+<hr />
+
+<h3>Ansible Playbooks in Satperf</h3>
+
+<p>2 major categories:</p>
+
+<ol>
+<li><p>Satellite</p>
+
+<ul>
+<li>Setup (either AWS or normal environements)
+
+<ul>
+<li>Satellite</li>
+<li>Capsules</li>
+<li>Docker hosts (N content hosts per docker host)</li>
+</ul>
+</li>
+<li>Satutils</li>
+<li>healthcheck</li>
+</ul>
+</li>
+<li><p>Monitoring</p>
+
+<ul>
+<li>Collectd</li>
+<li>Graphite</li>
+<li>Grafana</li>
+</ul>
+</li>
+</ol>
+
+
+<hr />
+
+<h3>Playbook: Monitoring</h3>
+
+<p>For a description of metrics we collect about Satellite installation, <a href="http://arcolife.github.io/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/">refer to this post</a></p>
+
+<h4>Collectd: role description</h4>
+
+<p>Installs collectd on either/all of: satellite / capsule / docker-hosts</p>
+
+<h4>Graphite: role description</h4>
+
+<p>Installs Graphite time-series database for metric storage of collected metrics on the configured graphite host</p>
+
+<h4>Grafana: role description</h4>
+
+<p>Installs Grafana time-series metric visualization framework, on the configured grafana host</p>
+
+<hr />
+
+<h3>Playbook: Satellite</h3>
+
+<h4>Setup: role description</h4>
+
+<ul>
+<li>common</li>
+<li>rhsm</li>
+<li>setup</li>
+<li>pbench_client (WIP)</li>
+<li>satellite-populate</li>
+</ul>
+
+
+<h4>Satutils: role description (WIP)</h4>
+
+<ul>
+<li>backup</li>
+<li>upload-manifest</li>
+<li>restore</li>
+<li>add-product</li>
+<li>create-lifecycle</li>
+<li>enable-content</li>
+<li>content-view-create</li>
+<li>content-view-publish</li>
+<li>content-view-promote</li>
+<li>sync-content</li>
+<li>sync-capsule</li>
+<li>register</li>
+<li>status_check</li>
+</ul>
+
+
+<h4>Health check: role description (WIP)</h4>
+
+<p>We plan to integrate <a href="https://github.com/boogiespook/sat6_healthCheck/">this github project - sat6_healthCheck</a></p>
+
+<hr />
+
+<h3>Blog roll: More on Satellite itself</h3>
+
+<p>From <a href="https://access.redhat.com/announcements/2470701">Satellite&rsquo;s latest release</a>:</p>
+
+<p>Red Hat Satellite 6.2 is now generally available, and includes the following major enhancements:</p>
+
+<ul>
+<li>Enhanced container management with RHEL Atomic</li>
+<li>New remote configuration management for managed hosts</li>
+<li>bootstrap.sh support for configuration management and host migration</li>
+<li>The ability to change disconnected environments to connected</li>
+<li>Inter-Satellite synchronization for content</li>
+<li><p>PXE-less discovery for existing systems</p></li>
+<li><p><a href="https://access.redhat.com/documentation/en/red-hat-satellite/6.2/single/release-notes">Release Notes</a></p></li>
+<li><p><a href="https://access.redhat.com/documentation/en/red-hat-satellite/6.2/single/installation-guide#upgrading_satellite_server_and_capsule_server">Satellite Installation Guide</a></p></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Archit Sharma</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-08-22T18:18:16+05:30'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2016</span></span> <span class='time'>6:18 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/monitoring/'>monitoring</a>, <a class='category' href='/blog/categories/os/'>os</a>, <a class='category' href='/blog/categories/performance/'>performance</a>, <a class='category' href='/blog/categories/red-hat-satellte/'>red hat satellte</a>, <a class='category' href='/blog/categories/rhel/'>rhel</a>, <a class='category' href='/blog/categories/satellite/'>satellite</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/" data-via="arcolife" data-counturl="http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/" title="Previous Post: Setting up collectd plugins with Graphite and Grafana">&laquo; Setting up collectd plugins with Graphite and Grafana</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/10/05/monitoring-in-satperf-metrics-collection/" title="Next Post: Monitoring in Satperf: metrics collection">Monitoring in Satperf: metrics collection &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/13/test/">Test</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/04/30/recovering-an-encrypted-partition-after-accidentally-overwriting-it-with-fio/">Recovering Encrypted LVM Based Partitions, After Accidentally Overwriting 'Em With 'Fio'!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/03/02/performance-engineering-tils-part-1/">Performance Engineering TILs - Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/02/22/resizing-an-xfs-partition-on-a-thin-provisoned-disk-in-a-rhvm-env/">Resizing an Xfs Partition on a Thin Provisoned Disk in a RHVM Env</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/01/19/number-notetoself-fix-mariadb-selinux-related-errors-fails-to-restart-after-update/">#noteToSelf - Fix MariaDB-selinux Related Errors (Fails to Restart After Update)</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/arcolife">@arcolife</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'arcolife',
+            count: 10,
+            skip_forks: false,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/+ArchitSharma1337?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Archit Sharma -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'arcolife';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/';
+        var disqus_url = 'http://arcolife.github.io/blog/2016/08/22/satperf-a-satellite-performance-benchmarking-and-automation-tool/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

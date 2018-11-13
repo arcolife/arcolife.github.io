@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Setting Up Your Own Blog Hosted on Github - heXoughts - arco's braindumps & musings</title>
+  <meta name="author" content="Archit Sharma">
+
+  
+  <meta name="description" content="I recently shifted from having a static page as my github.io link to making a blog out of the default .io page for my Github account. I found it &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://arcolife.github.io/blog/2016/06/12/setting-up-your-own-blog-on-github/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="heXoughts - arco's braindumps & musings" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-78826319-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">heXoughts - arco's braindumps & musings</a></h1>
+  
+    <h2>In my quest for an answer to nature's existence, I wish to be an inter-galactic hitchhiker..</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="arcolife.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Setting Up Your Own Blog Hosted on Github</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-06-12T04:37:14+05:30'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:37 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://arcolife.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I recently shifted from having a static page as my <a href="http://arcolife.github.io/blog/2016/06/06/first-post/">github.io link</a> to making a blog out of the default .io page for my Github account. I found it pretty cool to be able to push stuff through markdown (although even that formatting is configurable under <code>Rakefile</code> of octopress source code).</p>
+
+<p>So here&rsquo;s a really short post on how to set it up.</p>
+
+<!--more-->
+
+
+<h3>Step 0: Make sure you have a github account and a suitable repo</h3>
+
+<p>Make an account on <a href="https://www.github.com/">this github website</a></p>
+
+<p>..and then, make a new repository on github, called <code>&lt;username&gt;.github.io</code></p>
+
+<p>Reference: I have a repo called: <code>http://github.com/arcolife/arcolife.github.io</code></p>
+
+<h3>Step 1: Get your gear!</h3>
+
+<p>Make sure you have git and ruby installed in your command line environment.</p>
+
+<p>I had the following versions:</p>
+
+<ul>
+<li><p>ruby 2.2.5p319 (2016-04-26 revision 54774) [x86_64-linux]</p>
+
+<p>Although lower versions (such as 1.9) might work too.</p></li>
+<li><p>git version 2.5.5</p></li>
+</ul>
+
+
+<h3>Step 2: Get octopress</h3>
+
+<ul>
+<li>Download the repository under a suitable location on your disk:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>cd octopress/</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Next, if you run <code>bundle install &amp;&amp; rake install</code>, then IIRC, you&rsquo;d get a failure.
+If not, then the almighty Gods are with you on this lad ..else,
+make a change to <code>group:development</code> in <code>Gemfile</code> by adding the following:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  gem 'json_pure', '~&gt; 1.8.3'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>  This is because when I tried to install the requirements,
+  I got an error and a recommendation to add the above.
+  Refer to <a href="https://github.com/arcolife/arcolife.github.io/blob/source/Gemfile#L16">this file under my repo</a>,
+  if in doubt.</p>
+
+<p>  Be advised that this micro-step may not be necessary in future releases or in your environment.</p>
+
+<ul>
+<li>Now install requirements along with octopress itself:
+<code>
+bundle install &amp;&amp; rake install
+</code></li>
+</ul>
+
+
+<h3>Step 3: Connect your username.github.io with octopress</h3>
+
+<p>Run this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Follow the instructions and supply input as asked.</p>
+
+<p>This would clone and download your repo to a folder called <code>source</code> and change your
+branch from <code>master</code> to <code>source</code>. You should check this with <code>git remove -v</code>.
+I got something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>octopress    git://github.com/imathis/octopress.git (fetch)
+</span><span class='line'>octopress git://github.com/imathis/octopress.git (push)
+</span><span class='line'>origin        https://github.com/arcolife/arcolife.github.io (fetch)
+</span><span class='line'>origin        https://github.com/arcolife/arcolife.github.io (push)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and on running <code>git branch</code> it should display <code>* source</code>.</p>
+
+<p>If you then do a <code>git status</code> you&rsquo;d get something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>your branch is based on 'origin/master', but the upstream is gone.
+</span><span class='line'>(use "git branch --unset-upstream" to fixup)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>..which is fine. Let&rsquo;s move on to next step.</p>
+
+<hr />
+
+<p>Side note:
+However, if in case, this fails to change your branch to <code>source</code>,
+i.e, you don&rsquo;t have your username under urls of <code>origin</code> in your output of
+<code>git remote -v</code> ..then you&rsquo;d have to do this step manually like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git remote add origin git@github.com:arcolife/arcolife.github.com.git
+</span><span class='line'>git branch -m master source
+</span><span class='line'>git branch</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This should now display <code>* source</code>.</p>
+
+<h3>Step 4: Try running in preview mode</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This should start a server on <code>http://localhost:4000</code> and you should be able to
+view a default colorful octopress page.</p>
+
+<h3>Step 5 (optional): Deciding where to keep the default blog</h3>
+
+<p><a href="http://octopress.org/docs/deploying/subdir/">Check this out</a></p>
+
+<p>Mine is with default settings so I haven&rsquo;t tried this out.</p>
+
+<h3>Step 6: Push your changes to github and deploy the blog</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate
+</span><span class='line'>
+</span><span class='line'>git add .
+</span><span class='line'>git commit -am "init github based octopress"
+</span><span class='line'>git push origin source
+</span><span class='line'>
+</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This might take upto 5 mins sometimes or may be a matter of
+few seconds depending on how the update job runs and the load
+on github servers. Refresh and check in intervals.</p>
+
+<h3>Step 7: A new post</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post["My first post"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This would generate a new post and display a message like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p source/_posts
+</span><span class='line'>Creating new post: source/_posts/2016-06-12-my-first-post.markdown</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Edit that file and write up a post using markdown format.
+Repeast steps in <code>Step 6</code> to deploy.</p>
+
+<h3>Step 8: Tweaks quickstart</h3>
+
+<p>Some of these tips are well covered under <a href="http://octopress.org/docs/blogging/">Octopress' blogging basics</a>
+and under <a href="https://github.com/octopress/octopress#configuration">octopress' github README config section</a>
+but just pointing them out for quickstart references:</p>
+
+<h4>Configure blog name and other basics</h4>
+
+<p>Open <code>_config.yml</code> and edit the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>title:
+</span><span class='line'>subtitle:
+</span><span class='line'>author:</span></code></pre></td></tr></table></div></figure>
+
+
+<p>repeat steps from <code>Step 6</code> to see changes live on your username.github.io</p>
+
+<h4>Linking your octopress blog with social networks</h4>
+
+<p>Edit <code>_config.yml</code> and edit the following (change your usernames accordingly):</p>
+
+<ul>
+<li>Github:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>github_user: arcolife
+</span><span class='line'>github_repo_count: 5</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Google Plus:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>googleplus_user: +ArchitSharma1337</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Twitter: (read more below under <code>Adding asides</code> section on adding twitter feed)</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>twitter_user: arcolife
+</span><span class='line'>+twitter_show_replies: false
+</span><span class='line'>+twitter_follow_button: true
+</span><span class='line'>+twitter_show_follower_count: false</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>For facebook like on posts:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>facebook_like: true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Images in post</h4>
+
+<p>If you wanna insert images, add them under <code>source/images</code> and you could either:</p>
+
+<ul>
+<li><p>Refer to their path either like this:</p>
+
+<pre><code>![Sample image caption](https://raw.githubusercontent.com/username/username.github.io/master/images/sample.png)
+</code></pre>
+
+<p>Replace username with your github username, and <code>images/sample.png</code> with whatever path your images are in,
+under <code>source/</code></p></li>
+<li><p>Or give a relative path like this:</p>
+
+<pre><code>![Image caption](../images/sample.png)
+</code></pre></li>
+</ul>
+
+
+<p>The second option is hackish &amp; works based on your directory structure.
+<a href="http://stackoverflow.com/a/17089293/1332401">There are other ways of doing this as well</a></p>
+
+<h4>Adding <code>asides</code> (panel contents)</h4>
+
+<p>Edit <code>_config.yml</code> as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>blog_index_asides:  [custom/asides/about.html, asides/recent_posts.html, asides/github.html, asides/googleplus.html]
+</span><span class='line'>post_asides:        [custom/asides/about.html, asides/recent_posts.html, asides/github.html,  asides/googleplus.html]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You could add your custom asides / make changes to layout from files under <code>source/_includes</code> folder.
+For example, to add your twitter feed, you&rsquo;d wanna take a look <a href="http://blog.jmac.org/2013-03-30-putting-twitter-back-into-octopress.html">at this blog post</a> which tells you how to add that and why it was removed as a default.</p>
+
+<h4>Google analytics</h4>
+
+<p>This is to track location/count of visitors to your website. Open <code>_config.yml</code> and edit the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>google_analytics_tracking_id: &lt;add your ID here&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You&rsquo;d need to have an account on <a href="https://analytics.google.com/">this google analytics website</a>
+to get an ID. There&rsquo;s a limit on number of free IDs allotted to your google account. Check out
+the T&amp;Cs on their website.</p>
+
+<h4>Comments in blog posts</h4>
+
+<p>If you wanna enable <code>Disqus</code> based comments, you need to have an account on <a href="https://www.disqus.com/admin/">this disqus admin website</a> and add the url <code>&lt;username&gt;.github.io</code> under trusted domains on <code>https://&lt;disqus admin username&gt;.disqus.com/admin/settings/advanced/</code> and you need to configure your <code>community</code> name (which is nothing but a setting for your site) under <code>https://&lt;disqus admin username&gt;.disqus.com/admin/settings/general/</code></p>
+
+<h4>Adding a static website under your github website</h4>
+
+<p>If you&rsquo;d like to link up a static content (fully supporting it&rsquo;s own html/css layout),
+just add them under <code>source/&lt;new_dir&gt;/</code> and you should be able to access that
+under <code>username.github.io/&lt;new_dir&gt;</code></p>
+
+<p>Then, go ahead and edit <code>_config.yml</code> and edit the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>disqus_short_name: arcolife
+</span><span class='line'>disqus_show_comment_count: true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Working on drafts, disabling comments and adding categories</h4>
+
+<p>When you&rsquo;re writing a blog post, change true/false or add categories
+to your _posts/<post>.md as shown below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>comments: true
+</span><span class='line'>published: true
+</span><span class='line'>categories: [RHEL, Linux, Microservices]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A push to github with <code>published: false</code> means the markdown has been safely
+committed to source branch on your repo, but the post is not publicly visible.
+This way you could keep working on the file and change to true when it&rsquo;s ready.</p>
+
+<hr />
+
+<p>All that said, I still haven&rsquo;t added an &lsquo;about&rsquo; section to my post,
+or moved it under a custom <code>blog/</code> folder successfully. Or changed the
+default page to something else or made changes to default theme.
+If you&rsquo;ve done that, please add a comment here on how you did it
+or a link to it if you&rsquo;ve blogged about it. Would save me some time eh! :)</p>
+
+<p>Thats it for now folks!</p>
+
+<p>Share it across, post a comment if you&rsquo;d like to add something
+to this post, or want any edits made or found a flaw in the flow
+or would simply like to let me know if this helped.</p>
+
+<p>Cheers!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Archit Sharma</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-06-12T04:37:14+05:30'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>4:37 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blogging/'>blogging</a>, <a class='category' href='/blog/categories/github/'>github</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://arcolife.github.io/blog/2016/06/12/setting-up-your-own-blog-on-github/" data-via="arcolife" data-counturl="http://arcolife.github.io/blog/2016/06/12/setting-up-your-own-blog-on-github/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/06/06/sarjitsu-a-project-on-visualizing-your-systems-activity/" title="Previous Post: Sarjitsu: A project on visualizing system's activity">&laquo; Sarjitsu: A project on visualizing system's activity</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2016/08/22/setting-up-collectd-plugins-for-red-hat-satellite-with-graphite-and-grafana/" title="Next Post: Setting up collectd plugins with Graphite and Grafana">Setting up collectd plugins with Graphite and Grafana &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/11/13/test/">Test</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/04/30/recovering-an-encrypted-partition-after-accidentally-overwriting-it-with-fio/">Recovering Encrypted LVM Based Partitions, After Accidentally Overwriting 'Em With 'Fio'!</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/03/02/performance-engineering-tils-part-1/">Performance Engineering TILs - Part 1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/02/22/resizing-an-xfs-partition-on-a-thin-provisoned-disk-in-a-rhvm-env/">Resizing an Xfs Partition on a Thin Provisoned Disk in a RHVM Env</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/01/19/number-notetoself-fix-mariadb-selinux-related-errors-fails-to-restart-after-update/">#noteToSelf - Fix MariaDB-selinux Related Errors (Fails to Restart After Update)</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/arcolife">@arcolife</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'arcolife',
+            count: 10,
+            skip_forks: false,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/+ArchitSharma1337?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - Archit Sharma -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'arcolife';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://arcolife.github.io/blog/2016/06/12/setting-up-your-own-blog-on-github/';
+        var disqus_url = 'http://arcolife.github.io/blog/2016/06/12/setting-up-your-own-blog-on-github/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

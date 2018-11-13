@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mariadb | heXoughts - arco's braindumps & musings]]></title>
+  <link href="http://arcolife.github.io/blog/categories/mariadb/atom.xml" rel="self"/>
+  <link href="http://arcolife.github.io/"/>
+  <updated>2018-11-13T08:21:11+05:30</updated>
+  <id>http://arcolife.github.io/</id>
+  <author>
+    <name><![CDATA[Archit Sharma]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[#noteToSelf - Fix MariaDB-selinux Related Errors (Fails to Restart After Update)]]></title>
+    <link href="http://arcolife.github.io/blog/2017/01/19/number-notetoself-fix-mariadb-selinux-related-errors-fails-to-restart-after-update/"/>
+    <updated>2017-01-19T21:37:53+05:30</updated>
+    <id>http://arcolife.github.io/blog/2017/01/19/number-notetoself-fix-mariadb-selinux-related-errors-fails-to-restart-after-update</id>
+    <content type="html"><![CDATA[<p><a href="https://jira.mariadb.org/browse/MDEV-11789">https://jira.mariadb.org/browse/MDEV-11789</a></p>
+
+<pre><code>yum -y install MariaDB-devel  gcc gcc-c++ autoconf automake make libtool   zlib zlib-devel openssl-devel
+yum install -y MySQL-server
+
+# tried this, didn't work (where /home/native is the directory with mysql database is stored; configurable in my.cnf)
+semanage fcontext -a -t mysqld_db_t "/home/native(/.*)?"
+restorecon -Rv /home/native/
+yum install selinux-policy
+audit2allow -a
+yum install yum-utils
+yum-complete-transaction
+
+# then tried this
+yum provides sealert
+yum install setroubleshoot-server
+sealert -a /var/log/audit/audit.log
+# this produces alerts from audit.log and provides hints as to what should be executed next..
+
+# so i followed directions..
+ausearch -c 'mysqld_safe_hel' --raw | audit2allow -M my-mysqldsafehel
+semodule -i my-mysqldsafehel.pp
+</code></pre>
+
+<!--more-->
+
+]]></content>
+  </entry>
+  
+</feed>

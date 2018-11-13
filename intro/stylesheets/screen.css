@@ -1,0 +1,89 @@
+/*
+Error: File not found or cannot be read: /home/arcolife/workspace/utils/My_projects/octopress/source/images/dotted-border.png
+        on line 2 of /home/arcolife/workspace/utils/My_projects/octopress/sass/base/_theme.scss
+        from line 3 of /home/arcolife/workspace/utils/My_projects/octopress/sass/_base.scss
+        from line 7 of /home/arcolife/workspace/utils/My_projects/octopress/sass/screen.scss
+
+1: @import "compass";
+2: @include global-reset;
+3: 
+4: @import "custom/colors";
+5: @import "custom/fonts";
+6: @import "custom/layout";
+7: @import "base";
+
+Backtrace:
+/home/arcolife/workspace/utils/My_projects/octopress/sass/base/_theme.scss:2
+/home/arcolife/workspace/utils/My_projects/octopress/sass/_base.scss:3
+/home/arcolife/workspace/utils/My_projects/octopress/sass/screen.scss:7
+/home/arcolife/.gem/ruby/gems/compass-core-1.0.3/lib/compass/core/sass_extensions/functions/inline_image.rb:60:in `data'
+/home/arcolife/.gem/ruby/gems/compass-core-1.0.3/lib/compass/core/sass_extensions/functions/inline_image.rb:6:in `inline_image'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/script/tree/funcall.rb:143:in `_perform'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:471:in `visit_variable'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:328:in `block (2 levels) in visit_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:328:in `map'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:328:in `block in visit_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:88:in `block in with_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:88:in `with_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:325:in `visit_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:328:in `block (2 levels) in visit_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:328:in `map'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:328:in `block in visit_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:88:in `block in with_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:88:in `with_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:325:in `visit_import'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `map'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:169:in `block in visit_children'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:168:in `visit_children'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:188:in `visit_root'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:159:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/root_node.rb:36:in `css_tree'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/tree/root_node.rb:20:in `render'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/engine.rb:281:in `render'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:494:in `update_stylesheet'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:209:in `each'
+/home/arcolife/.gem/ruby/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/lib/compass/sass_compiler.rb:40:in `compile!'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/lib/compass/commands/update_project.rb:49:in `perform'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/lib/compass/commands/base.rb:18:in `execute'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/lib/compass/commands/project_base.rb:19:in `execute'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:43:in `perform!'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/lib/compass/exec/sub_command_ui.rb:15:in `run!'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/bin/compass:30:in `block in <top (required)>'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/bin/compass:44:in `call'
+/home/arcolife/.gem/ruby/gems/compass-1.0.3/bin/compass:44:in `<top (required)>'
+/home/arcolife/bin/compass:23:in `load'
+/home/arcolife/bin/compass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: File not found or cannot be read: /home/arcolife/workspace/utils/My_projects/octopress/source/images/dotted-border.png\A         on line 2 of /home/arcolife/workspace/utils/My_projects/octopress/sass/base/_theme.scss\A         from line 3 of /home/arcolife/workspace/utils/My_projects/octopress/sass/_base.scss\A         from line 7 of /home/arcolife/workspace/utils/My_projects/octopress/sass/screen.scss\A \A 1: @import \"compass\";\A 2: @include global-reset;\A 3: \A 4: @import \"custom/colors\";\A 5: @import \"custom/fonts\";\A 6: @import \"custom/layout\";\A 7: @import \"base\";"; }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rhvm | heXoughts - arco's braindumps & musings]]></title>
+  <link href="http://arcolife.github.io/blog/categories/rhvm/atom.xml" rel="self"/>
+  <link href="http://arcolife.github.io/"/>
+  <updated>2018-11-13T08:21:11+05:30</updated>
+  <id>http://arcolife.github.io/</id>
+  <author>
+    <name><![CDATA[Archit Sharma]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Resizing an Xfs Partition on a Thin Provisoned Disk in a RHVM Env]]></title>
+    <link href="http://arcolife.github.io/blog/2017/02/22/resizing-an-xfs-partition-on-a-thin-provisoned-disk-in-a-rhvm-env/"/>
+    <updated>2017-02-22T02:53:28+05:30</updated>
+    <id>http://arcolife.github.io/blog/2017/02/22/resizing-an-xfs-partition-on-a-thin-provisoned-disk-in-a-rhvm-env</id>
+    <content type="html"><![CDATA[<p>My postgres parition was full and I desperately needed to increase its size, in order to report some performance numbers.</p>
+
+<p>I couldn&rsquo;t afford to loose the data (and my shit). So I followed these steps to safely increase the size of that partition based on xfs, which existed on a logical volume already.</p>
+
+<p>Self help commands and assumptions:</p>
+
+<ul>
+<li>disk is /dev/vdb/</li>
+<li>xfs is mounted on /dev/vg_pg/lv_pg</li>
+<li>we grew the disk by 20 Gigs</li>
+</ul>
+
+
+<pre><code>xfs_info /dev/vg_pg/lv_pg -d 64G
+</code></pre>
+
+<!--more-->
+
+
+<p>Delete and resize partition. Let&rsquo;s say we&rsquo;re working with Partition 1 here:</p>
+
+<pre><code>fdisk /dev/vdb
+
+# p
+(list paritions)
+
+# d
+(confirm delete)
+
+# n
+(make new parition with default values, after you've extended disk size from RHEVM env)
+
+# w
+(save changes)
+</code></pre>
+
+<p>Now, reboot system.</p>
+
+<p>Run <code>partprobe</code> to be sure all went well.</p>
+
+<p>Then, run these set of commands:</p>
+
+<pre><code>pvresize /dev/vdb1
+pvs
+lvextend -L +20G /dev/mapper/vg_pg-lv_pg
+lvs
+xfs_growfs /dev/vg_pg/lv_pg
+</code></pre>
+
+<p>Refs:</p>
+
+<ol>
+<li><a href="https://help.1and1.com/servers-c37684/dynamic-cloud-server-linux-c73266/increase-the-physical-volume-size-of-a-linux-1and1-dynamic-cloud-server-a771780.html">https://help.1and1.com/servers-c37684/dynamic-cloud-server-linux-c73266/increase-the-physical-volume-size-of-a-linux-1and1-dynamic-cloud-server-a771780.html</a></li>
+<li><a href="https://access.redhat.com/solutions/697303">https://access.redhat.com/solutions/697303</a></li>
+<li><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/xfsgrow.html">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/xfsgrow.html</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: File Systems | heXoughts - arco's braindumps & musings]]></title>
+  <link href="http://arcolife.github.io/blog/categories/file-systems/atom.xml" rel="self"/>
+  <link href="http://arcolife.github.io/"/>
+  <updated>2018-11-13T08:21:11+05:30</updated>
+  <id>http://arcolife.github.io/</id>
+  <author>
+    <name><![CDATA[Archit Sharma]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Recovering Encrypted LVM Based Partitions, After Accidentally Overwriting 'Em With 'Fio'!]]></title>
+    <link href="http://arcolife.github.io/blog/2017/04/30/recovering-an-encrypted-partition-after-accidentally-overwriting-it-with-fio/"/>
+    <updated>2017-04-30T08:09:01+05:30</updated>
+    <id>http://arcolife.github.io/blog/2017/04/30/recovering-an-encrypted-partition-after-accidentally-overwriting-it-with-fio</id>
+    <content type="html"><![CDATA[<p>Disclaimer: Logging my experience of a quasi-success in executing <code>$subject</code>.</p>
+
+<h4>Specs</h4>
+
+<ul>
+<li>Partitioning scheme: LVM based encrypted partitions</li>
+<li>Hardware - Lenovo T440p</li>
+<li>OS (earlier) - Fedora 24 Gnome</li>
+<li>OS (now) - Fedora 24 KDE</li>
+</ul>
+
+
+<p>As if there aren&rsquo;t enough cases already, this one found a grand entrance to the club of royally screwed ups, when it comes to messing up with your disk partitions.</p>
+
+<!--more-->
+
+
+<h5>Backstory and the foreplay</h5>
+
+<p>I supplied <a href="https://github.com/arcolife/kvm_io/blob/master/bench_iter.sh#L113">this command</a> but with <code>fio</code> instead of <code>pbench-fio</code>. I thought the options would be similar to what <code>fio</code> supports, so I ran it with<code>--client=&lt;IP of VM&gt;</code> which it obviously didn&rsquo;t support and reacted to, with a complaint. The command I then ran using ssh, was something this:</p>
+
+<pre><code>fio --filename=/dev/sda --direct=1 --rw=randwrite --refill_buffers --ioengine=libaio --bs=128k --rate_iops=1280  --iodepth=16 --numjobs=8 --runtime=20 
+</code></pre>
+
+<p>But I managed to mess it up and this ran on host&rsquo;s <code>/dev/sda</code> instead of VM&rsquo;s. Albeit, I didn&rsquo;t realize the blunder in that moment and later rebooted the machine. Well then obviously it wouldn&rsquo;t boot up and so it went into PXE boot mode. With 0 pendrives within my reach, I PXE booted through my office&rsquo;s network and thought I&rsquo;d use the liveuser to recover. But that went into the <code>#dracut</code> mode. I went back home and finally used a live USB to boot into the laptop. On checking for partitions through <code>fdisk</code>, I couldn&rsquo;t see any. Whelp!</p>
+
+<p>And in the install menu&rsquo;s disk selection option, it didn&rsquo;t show up the partitions either..</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/manual_partition_without.jpeg" alt="Manual Partition - Free" /></p>
+
+<h4>The act of repression</h4>
+
+<p>So then I downloaded testdisk [1] and followed those step-by-step instructions. Unfortunately, mine was a case of an encrypted ext4 partition, which isn&rsquo;t what that testdisk&rsquo;s version supports (for listing files) out of the box. But on a &lsquo;quick search&rsquo;, testdisk did discover 2 partitions (Bootable and Primary) and on a &lsquo;deeper search&rsquo;, other parititions with labels P and D (Primary/Deleted [1]). I chose to write the quick search partition table and the exited the tool.</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/testdisk_quick.jpeg" alt="quick testdisk" />
+<img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/testdisk_deeper.jpeg" alt="deep testdisk" />
+<img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/partition_post_testdisk.jpeg" alt="Post testdisk" /></p>
+
+<p>Later, I ran another tool <code>PhotoRec</code> [2] by the same author behind <code>testdisk</code> and that helped me recover 4 txt files and 3 LUKS files. I wrote the partitions it found out, to the table. It would only make sense if I could somehow decrypt and mount/scan the .LUKS files. I used an external hard drive and saved them to it while supplying the same as an option to PhotoRec.</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/photorec_deep.jpeg" alt="Photo Rec deep" /></p>
+
+<p>Note that this was a hurdle I <em>had to</em> cross since they&rsquo;re encrypted partitions. Generally speaking, if we&rsquo;ve got N encrypted partitions, but the initial few sectors containing the header volume info for passphrase are overwritten, it&rsquo;s often impossible to recover data (as of what I understood from conversations in forums). But this might be considered as an advantage in cases where you&rsquo;d like to mess up the hard drive on purpose, since erasing the first few bytes does the job, as the data in rest of the sectors is encrypted af.</p>
+
+<p>Getting back to point, I followed [3] and mapped those LUKS files to the VG pool (although unsuccessfully). Error that I spotted (under <code>/var/log/messages</code>) was somewhere along the lines of <code>vgchange buffer io error on device sda &lt;snip snip&gt; logical block: LUKS I/O error -5 writing to inode</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/luks_dump.jpeg" alt="LUKS dump" />
+<img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/luks_open.jpeg" alt="LUKS open" />
+<img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/pvs.jpeg" alt="PVS" /></p>
+
+<p>Side note: Neither in PhotoRec nor in TestDisk, did I attempt to re-write MBR table.</p>
+
+<p>On the edge of a Post Traumatic Scan Disorder from Testdisk and photoRec, I almost gave up while recalling suggestions from a few forums, which pointed to the fact that it&rsquo;s impossible to recover encrypted partitions if the header volume info wasn&rsquo;t backed up. It all seemed gloomy and dark and I slept thereafter while putting another photoRec scan to work in the background.</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/vgchange_error.jpeg" alt="Vgchange error" /></p>
+
+<p>A couple hours later, I tried to wake up the laptop screen but it wouldn&rsquo;t (Fedora 24 KDE does that sometimes it seems). Trudging back to the idea of starting over, I hard rebooted and decided to install the OS, from scratch. But to my surprise, while booting up with the live USB and inside the install menu&rsquo;s disk partitioning scheme option <code>I'll configure partition myself</code>, I saw an &ldquo;Unknown&rdquo; partitioning dropdown. Now now, this didn&rsquo;t show up earlier and so then I went ahead and removed all but the biggest one (which I knew was the home partition). I supplied the passphrase for older encryption, specified a mount point <code>/home</code>, made other parititions (all except biosboot [5]) and Voila! all I had to do later was to reinstall some rpm packages.</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/manual_partition_with.jpeg" alt="Manual Partition - Unknown" /></p>
+
+<p>So to speak, I&rsquo;m not sure what gave or how it worked, but it did! Tag-lining this as a &ldquo;comedy of errors and a tragedy to remember&rdquo;.</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/final.jpeg" alt="Happy" /></p>
+
+<p>PS: On recovery, I&rsquo;ve lost some disk space ( ~ 80 MiB) fragmented and squeezed in between those partitions. Also, my RAM shows up as 15.4 GiB instead of 16 GiB. Or maybe that&rsquo;s just how accurate a System Monitor in KDE is?!</p>
+
+<p><img src="https://raw.githubusercontent.com/arcolife/arcolife.github.io/master/images/recovery/fragments.jpeg" alt="Fragments count" /></p>
+
+<h4>References</h4>
+
+<ol>
+<li><a href="http://www.cgsecurity.org/wiki/TestDisk_Step_By_Step">http://www.cgsecurity.org/wiki/TestDisk_Step_By_Step</a></li>
+<li><a href="http://www.cgsecurity.org/wiki/PhotoRec_Step_By_Step">http://www.cgsecurity.org/wiki/PhotoRec_Step_By_Step</a></li>
+<li><a href="https://alvinabad.wordpress.com/2012/09/22/how-to-recover-a-luks-encrypted-disk/">https://alvinabad.wordpress.com/2012/09/22/how-to-recover-a-luks-encrypted-disk/</a></li>
+<li><a href="https://forum.cgsecurity.org/phpBB3/viewtopic.php?t=1431">Recovering files from an encrypted drive</a></li>
+<li><a href="https://www.redhat.com/archives/kickstart-list/2012-August/msg00005.html">Re: how to tell when biosboot partition is needed?</a></li>
+<li><a href="https://forum.cgsecurity.org/phpBB3/viewtopic.php?t=462">USB stick unreadable</a></li>
+<li><a href="http://www.pavelkogan.com/2014/05/23/luks-full-disk-encryption/">http://www.pavelkogan.com/2014/05/23/luks-full-disk-encryption/</a></li>
+<li><a href="http://manpages.ubuntu.com/manpages/xenial/man1/ecryptfs-recover-private.1.html">http://manpages.ubuntu.com/manpages/xenial/man1/ecryptfs-recover-private.1.html</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Resizing an Xfs Partition on a Thin Provisoned Disk in a RHVM Env]]></title>
+    <link href="http://arcolife.github.io/blog/2017/02/22/resizing-an-xfs-partition-on-a-thin-provisoned-disk-in-a-rhvm-env/"/>
+    <updated>2017-02-22T02:53:28+05:30</updated>
+    <id>http://arcolife.github.io/blog/2017/02/22/resizing-an-xfs-partition-on-a-thin-provisoned-disk-in-a-rhvm-env</id>
+    <content type="html"><![CDATA[<p>My postgres parition was full and I desperately needed to increase its size, in order to report some performance numbers.</p>
+
+<p>I couldn&rsquo;t afford to loose the data (and my shit). So I followed these steps to safely increase the size of that partition based on xfs, which existed on a logical volume already.</p>
+
+<p>Self help commands and assumptions:</p>
+
+<ul>
+<li>disk is /dev/vdb/</li>
+<li>xfs is mounted on /dev/vg_pg/lv_pg</li>
+<li>we grew the disk by 20 Gigs</li>
+</ul>
+
+
+<pre><code>xfs_info /dev/vg_pg/lv_pg -d 64G
+</code></pre>
+
+<!--more-->
+
+
+<p>Delete and resize partition. Let&rsquo;s say we&rsquo;re working with Partition 1 here:</p>
+
+<pre><code>fdisk /dev/vdb
+
+# p
+(list paritions)
+
+# d
+(confirm delete)
+
+# n
+(make new parition with default values, after you've extended disk size from RHEVM env)
+
+# w
+(save changes)
+</code></pre>
+
+<p>Now, reboot system.</p>
+
+<p>Run <code>partprobe</code> to be sure all went well.</p>
+
+<p>Then, run these set of commands:</p>
+
+<pre><code>pvresize /dev/vdb1
+pvs
+lvextend -L +20G /dev/mapper/vg_pg-lv_pg
+lvs
+xfs_growfs /dev/vg_pg/lv_pg
+</code></pre>
+
+<p>Refs:</p>
+
+<ol>
+<li><a href="https://help.1and1.com/servers-c37684/dynamic-cloud-server-linux-c73266/increase-the-physical-volume-size-of-a-linux-1and1-dynamic-cloud-server-a771780.html">https://help.1and1.com/servers-c37684/dynamic-cloud-server-linux-c73266/increase-the-physical-volume-size-of-a-linux-1and1-dynamic-cloud-server-a771780.html</a></li>
+<li><a href="https://access.redhat.com/solutions/697303">https://access.redhat.com/solutions/697303</a></li>
+<li><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/xfsgrow.html">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/xfsgrow.html</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
