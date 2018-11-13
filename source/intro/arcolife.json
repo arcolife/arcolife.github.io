@@ -1,0 +1,324 @@
+{
+  "connected_users": [
+    {
+      "name": "zaxtax",
+      "username": "zaxtax"
+    },
+    {
+      "name": "Yasser Souri",
+      "username": "yassersouri"
+    },
+    {
+      "name": "Yaroslav Halchenko",
+      "username": "yarikoptic"
+    },
+    {
+      "name": "Pablo de Oliveira Castro",
+      "username": "pablooliveira"
+    },
+    {
+      "name": "Parker Thompson",
+      "username": "mothran"
+    }
+  ],
+  "gravatar": "f5872fe1226b480c2b16deaa82ed1c0e",
+  "name": "Archit Sharma",
+  "repositories": [
+    {
+      "count": 64,
+      "repo": "arcolife/popular-physics"
+    },
+    {
+      "count": 47,
+      "repo": "arcolife/scholarec"
+    },
+    {
+      "count": 25,
+      "repo": "arcolife/codeRiddles"
+    },
+    {
+      "count": 12,
+      "repo": "arcolife/arcolife.github.io"
+    },
+    {
+      "count": 7,
+      "repo": "arcolife/op-con"
+    }
+  ],
+  "similar_users": [
+    {
+      "name": "David Serrano",
+      "username": "n0namedguy"
+    },
+    {
+      "name": "Saxon Landers",
+      "username": "ackwell"
+    },
+    {
+      "name": "Mihail Yakimenko",
+      "username": "macgera"
+    },
+    {
+      "name": "stealthycoin",
+      "username": "stealthycoin"
+    },
+    {
+      "name": "kevindmorgan",
+      "username": "kevindmorgan"
+    }
+  ],
+  "timezone": null,
+  "usage": {
+    "day": [
+      13,
+      14,
+      31,
+      17,
+      8,
+      6,
+      5,
+      6,
+      5,
+      6,
+      10,
+      14,
+      10,
+      9,
+      10,
+      8,
+      9,
+      0,
+      11,
+      5,
+      1,
+      2,
+      5,
+      0
+    ],
+    "events": [
+      {
+        "day": [
+          8,
+          11,
+          14,
+          12,
+          6,
+          3,
+          2,
+          3,
+          4,
+          0,
+          8,
+          11,
+          8,
+          4,
+          8,
+          4,
+          7,
+          0,
+          7,
+          3,
+          0,
+          1,
+          2,
+          0
+        ],
+        "total": 126,
+        "type": "PushEvent",
+        "week": [
+          30,
+          15,
+          8,
+          21,
+          15,
+          21,
+          16
+        ]
+      },
+      {
+        "day": [
+          0,
+          0,
+          14,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "total": 19,
+        "type": "GollumEvent",
+        "week": [
+          0,
+          2,
+          0,
+          0,
+          17,
+          0,
+          0
+        ]
+      },
+      {
+        "day": [
+          2,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          2,
+          0,
+          1,
+          2,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "total": 16,
+        "type": "FollowEvent",
+        "week": [
+          1,
+          4,
+          3,
+          1,
+          1,
+          1,
+          5
+        ]
+      },
+      {
+        "day": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          4,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          3,
+          0
+        ],
+        "total": 11,
+        "type": "CreateEvent",
+        "week": [
+          1,
+          0,
+          3,
+          0,
+          6,
+          0,
+          1
+        ]
+      },
+      {
+        "day": [
+          1,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "total": 10,
+        "type": "IssuesEvent",
+        "week": [
+          4,
+          2,
+          0,
+          1,
+          1,
+          0,
+          2
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "count": 120,
+        "language": "Python",
+        "quantile": 100
+      },
+      {
+        "count": 45,
+        "language": "JavaScript",
+        "quantile": 100
+      },
+      {
+        "count": 11,
+        "language": "CSS",
+        "quantile": 100
+      }
+    ],
+    "total": 205,
+    "week": [
+      41,
+      24,
+      19,
+      24,
+      40,
+      27,
+      30
+    ]
+  },
+  "username": "arcolife"
+}

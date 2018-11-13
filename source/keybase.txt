@@ -1,0 +1,76 @@
+==================================================================
+https://keybase.io/archit
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://work.arcolife.in
+  * I am archit (https://keybase.io/archit) on keybase.
+  * I have a public key with fingerprint 4BAF F579 66A6 0AE0 E5CB  8394 D744 5ABE EC21 84B6
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01012ceec52a65d3792cf84a9c3da6cf3a4863c7ce6a88ae66a29faf35f7deabf8810a",
+            "fingerprint": "4baff57966a60ae0e5cb8394d7445abeec2184b6",
+            "host": "keybase.io",
+            "key_id": "d7445abeec2184b6",
+            "kid": "01012ceec52a65d3792cf84a9c3da6cf3a4863c7ce6a88ae66a29faf35f7deabf8810a",
+            "uid": "92a1b1799146e7ebe480694175806e19",
+            "username": "archit"
+        },
+        "revoke": {
+            "sig_ids": [
+                "c85c2363098ab6b33ac85770aa255bbc1f69f0224c1623fa4ac6086ebd3fce520f"
+            ]
+        },
+        "service": {
+            "hostname": "work.arcolife.in",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1466459828,
+    "expire_in": 157680000,
+    "prev": "83d1a0765463bced006ba8a222cb43c260a2675bc5f0c29c34cc77cf04736883",
+    "seqno": 26,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.53
+Comment: https://keybase.io/crypto
+
+yMJuAnicrVJdaFxFFL5pmsSmVUpFhFJbHFsrdmnnzv/dh6oU9UWRVoygTdeZuTOb
+223vXe/erFljwD74g0YLsQQ1IEptG1xQQyo20odUbVoULYIP2igoBVtIq1UMlDSK
+c5f65qPzcpgz3/m+75wzn1/f7nW3nZq578Crg1272748Md/vPdpnjw4ClYQNUBwE
+FdMKZk9oalmpEoWgCKAPfaSN0RRJRkPMA6StIDLQOJRMWyyJYFhzbZgUQhrGJAqs
+tJhaHhqprBA+lKAAbBSXTVpNozhztERJaykPHJxBaaChWgkckJATQqVyesgXRDFX
+2JfU8gpnTsma2RwlLucupZa9/8D/z777W3QBkr7yeRD4hBlulCECsoD4nLpo/CAH
+1kway73GoWWq+6IMDBVAaupJxeRTrUVlZ7kGio8DLahGmGEYCKmYwli6DOdQSkSp
+Utq3LLAQIaJ9hrCVRGoGBTMqxFYbiqAFvY7b6dUj3SLPZ3RN+6kkrWx2BpI9kXXT
+ip2zappkiUu4174sqxZzY1mj2kIbVbrGU1JRHLoluYK6SWtREoOi75A6i3Ji1zgj
+NBBIFIAZqEapKUU5gnImoDu5jKk7SoFDX0LOKGFYaRNCyJQUEiGkFcEauX0jxqnS
+1EKN3D6I1pxrCwnHTAgM8s6ejBNQRMz5lGXH6YYXy6w/NWDo0+mdS722bq+zY0n+
+e73uZSv//dNbb7vOe7fjQGP64SVvDK8b+Lh8qf07sv3+97aNb1/Bbveu4G/WNj4U
+5+gtc/Tvvelws+fSsuMrnkm2PPLE/M7eoxsbvQN37pt585fmZ4tn5h7YsP79k8cO
+vtA/md0xMLLjZjU1vn+DLS++s+Omv27YPXrXR88W7u35oc7i0ad/71w3h1ft/371
+WOXWNcd55eLlBTlW6Zof33eaju1qjkxsfOuxG0fg61+9dHZx9bnT5xcu3D2imq99
+0FxpP5ns+M3vObK20X5qy6+HRn/8c03Y9fbzV87e8/VhmRW++LZ2+aHJueWzQ9Nb
+15942Xtw9sJoJ7/4x8JzR36aWn7+6pmppROHvYOzr/y8Tb54cmbTxPzw1X8AGK9i
+Yw==
+=Jmzh
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/archit
+
+==================================================================
+
