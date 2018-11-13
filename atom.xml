@@ -4,7 +4,7 @@
   <title><![CDATA[heXoughts - arco's braindumps & musings]]></title>
   <link href="http://arcolife.github.io/atom.xml" rel="self"/>
   <link href="http://arcolife.github.io/"/>
-  <updated>2018-11-13T08:21:11+05:30</updated>
+  <updated>2018-11-13T08:44:52+05:30</updated>
   <id>http://arcolife.github.io/</id>
   <author>
     <name><![CDATA[Archit Sharma]]></name>
@@ -12,15 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Test]]></title>
-    <link href="http://arcolife.github.io/blog/2018/11/13/test/"/>
-    <updated>2018-11-13T05:31:15+05:30</updated>
-    <id>http://arcolife.github.io/blog/2018/11/13/test</id>
-    <content type="html"><![CDATA[<p>bla hah ah ha</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Recovering Encrypted LVM Based Partitions, After Accidentally Overwriting 'Em With 'Fio'!]]></title>

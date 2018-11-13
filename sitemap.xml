@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://arcolife.github.io/blog/2018/11/13/test/</loc>
-<lastmod>2018-11-13T05:31:15+05:30</lastmod>
-</url>
-<url>
 <loc>http://arcolife.github.io/blog/2017/04/30/recovering-an-encrypted-partition-after-accidentally-overwriting-it-with-fio/</loc>
 <lastmod>2017-04-30T08:09:01+05:30</lastmod>
 </url>
@@ -127,6 +123,6 @@
 </url>
 <url>
 <loc>http://arcolife.github.io/intro/index.html</loc>
-<lastmod>2018-11-13T08:18:45+05:30</lastmod>
+<lastmod>2018-11-13T08:27:56+05:30</lastmod>
 </url>
 </urlset>
