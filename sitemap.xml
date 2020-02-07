@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://arcolife.github.io/blog/2020/02/07/gra-fcuk-nah/</loc>
+<lastmod>2020-02-07T07:47:27+05:30</lastmod>
+</url>
+<url>
 <loc>http://arcolife.github.io/blog/2017/04/30/recovering-an-encrypted-partition-after-accidentally-overwriting-it-with-fio/</loc>
 <lastmod>2017-04-30T08:09:01+05:30</lastmod>
 </url>
@@ -41,10 +45,10 @@
 <lastmod>2016-06-06T04:27:15+05:30</lastmod>
 </url>
 <url>
-<loc>http://arcolife.github.io/blog/archives/</loc>
+<loc>http://arcolife.github.io/</loc>
 </url>
 <url>
-<loc>http://arcolife.github.io/</loc>
+<loc>http://arcolife.github.io/blog/archives/</loc>
 </url>
 <url>
 <loc>http://arcolife.github.io/blog/categories/rhel/</loc>
@@ -122,7 +126,13 @@
 <loc>http://arcolife.github.io/blog/categories/disk-partitioning/</loc>
 </url>
 <url>
+<loc>http://arcolife.github.io/blog/categories/foss/</loc>
+</url>
+<url>
+<loc>http://arcolife.github.io/blog/categories/grafana/</loc>
+</url>
+<url>
 <loc>http://arcolife.github.io/intro/index.html</loc>
-<lastmod>2018-11-13T08:27:56+05:30</lastmod>
+<lastmod>2020-02-07T07:17:07+05:30</lastmod>
 </url>
 </urlset>

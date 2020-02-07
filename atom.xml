@@ -4,7 +4,7 @@
   <title><![CDATA[heXoughts - arco's braindumps & musings]]></title>
   <link href="http://arcolife.github.io/atom.xml" rel="self"/>
   <link href="http://arcolife.github.io/"/>
-  <updated>2018-11-13T08:44:52+05:30</updated>
+  <updated>2020-02-07T08:21:20+05:30</updated>
   <id>http://arcolife.github.io/</id>
   <author>
     <name><![CDATA[Archit Sharma]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GRA FCUK? NAh]]></title>
+    <link href="http://arcolife.github.io/blog/2020/02/07/gra-fcuk-nah/"/>
+    <updated>2020-02-07T07:47:27+05:30</updated>
+    <id>http://arcolife.github.io/blog/2020/02/07/gra-fcuk-nah</id>
+    <content type="html"><![CDATA[<p>yearly resentment (this would be the last) over a failed contribution:</p>
+
+<ul>
+<li><a href="https://github.com/grafana/grafana/pull/7863#issuecomment-354004166">https://github.com/grafana/grafana/pull/7863#issuecomment-354004166</a></li>
+<li><a href="https://github.com/grafana/grafana/issues/4693">https://github.com/grafana/grafana/issues/4693</a></li>
+<li><a href="https://community.grafana.com/t/advanced-query-with-nested-object/4278/2">https://community.grafana.com/t/advanced-query-with-nested-object/4278/2</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Recovering Encrypted LVM Based Partitions, After Accidentally Overwriting 'Em With 'Fio'!]]></title>
