@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Archit Sharma — Operator CV</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#F9FAFB; --text:#111; --sub:#555; --line:#E5E7EB; --accent:#0FA3B1; --hi:#FFE156;
+      --container:1024px; /* Widened container */
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--container);margin:0 auto;padding:28px 20px 96px}
+    h1{font-size:2.1rem;line-height:1.2;margin:0}
+    h2{font-size:1.5rem;margin:0 0 16px} /* Increased h2 bottom margin */
+    h3{font-size:1.15rem;margin:0 0 6px}
+    p{margin:0 0 10px}
+    ul, ol { margin: 0 0 10px 20px; padding: 0 0 0 20px; }
+    li { margin-bottom: 5px; }
+
+    .meta{color:var(--sub);font-size:.9rem}
+    .chip{display:inline-block;background: #fff; border:1px solid var(--line);padding:.25rem .55rem;border-radius:999px;margin:4px 6px 0 0;font-size:.9rem}
+    .btn{display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:.5rem .8rem;border-radius:8px;margin-right:8px}
+    .card{background:#fff;border:1px solid #B4B9BE;border-radius:12px;padding:20px 24px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+    .section{margin-top:24px}
+    .stack{display:grid;gap:14px}
+    .rail{position:relative;padding-left:36px; display: grid; gap: 24px;} /* Added gap for timeline cards */
+    
+    /* Removed fragile hardcoded dots */
+    .rail:before{content:"";position:absolute;left:14px;top:28px;bottom:28px;width:6px;background:var(--accent);border-radius:3px}
+    
+    /* CSS-powered dots: automatically placed for each card in the rail */
+    .rail .card { position: relative; }
+    .rail .card::after {
+      content: "";
+      position: absolute;
+      left: -28px; /* (36px padding-left) - ( (12px width / 2) + 2px border) = 28px */
+      top: 22px; 
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--accent); 
+      border: 2px solid var(--bg); /* Creates knockout effect */
+    }
+
+    header.card{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
+    header .grow{flex:1 1 500px} /* Increased flex-basis from 300px to 500px */
+    .links{display:flex;flex-wrap:wrap;gap:8px; align-self: flex-start; }
+    .hi{background:var(--hi);padding:0 .35rem;border-radius:4px; font-weight: 600;}
+    
+    /* List for detailed roles */
+    .domain-list {
+      list-style-type: disc;
+      margin: 4px 0 0 20px;
+      padding: 0 0 0 5px;
+      display: grid;
+      gap: 12px;
+    }
+    .domain-list li {
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Grid for Pubs/Certs/Edu */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+
+    /* Responsive */
+    @media (max-width:1024px){ 
+      .grid-2, .grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width:768px){
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .wrap { padding: 20px 16px 64px; }
+      h1 { font-size: 1.9rem; }
+      h2 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- HERO / IDENTITY -->
+    <header class="card section">
+      <div class="grow">
+        <h1>Archit Sharma</h1>
+        <div class="meta" style="font-size: 1.1rem; line-height: 1.4; margin-top: 4px;">
+          Principal Engineer · Infra &amp; Blockchain Systems Operator · Bangalore, India
+          <!-- Combined the <p> tag into this div to prevent wrapping issues -->
+          <span style="display: block; margin-top: 12px; font-weight: 400;">
+            Building resilient, distributed systems that ship fast and scale clean.
+          </span>
+        </div>
+      </div>
+      <div class="links">
+        <a class="btn" href="mailto:archit@pm.me">Email</a>
+        <a class="btn" href="https://linkedin.com/in/arcolife" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="btn" href="https://github.com/arcolife" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section class="card section">
+      <h2>About</h2>
+      <!-- New headline integrated -->
+      <p style="font-size: 1.05rem; line-height: 1.6;">
+        Archit is a multifaceted software engineer with 11+ years of experience building resilient, distributed systems. He excels in infrastructure (DevOps, SRE), blockchain (DeFi, DePIN, L1, L2), and AI (LLMs, MLOps). Whether coding innovative solutions, optimizing performance in cloud and bare-metal, or automating complex infrastructures, Archit consistently drives progress. He has led engineering teams for startups and enterprises, published influential whitepapers, and presented on global stages.
+      </p>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="section rail">
+      <!-- Kurv -->
+      <div class="card stack">
+        <h3>Kurv Tech — Founder / Principal Engineer <span class="meta">· 2021 → Present</span></h3>
+        <p><span class="hi">MoaRAG</span> — visual knowledge OS to organize ideas and workflows. Iterated through multiple R&D prototypes to validate product-market fit. Early revenue; backed by AWS Activate &amp; Google for Startups. <a href="https://demo.kurv.tech" target="_blank" rel="noopener noreferrer">View Demo →</a></p>
+      </div>
+      
+      <!-- Toptal -->
+      <div class="card stack">
+        <h3>Toptal — Freelance DevOps & Blockchain Engineer <span class="meta">· 2022 → Present</span></h3>
+        <!-- Balanced and detailed list -->
+        <ul class="domain-list">
+          <li><strong>DeFi (Lead DevOps):</strong> Led validator/RPC ops for on-chain order flows (DEX, LST, MEV). Deployed self-hosted baremetal infra & observability (Rust, Go, Python).</li>
+          <!-- Updated DePIN (CTO) role -->
+          <li><strong>DePIN (CTO/Product Manager):</strong> Rescued an 18-month at-risk, <span class="hi">million-dollar seed-funded</span> project, accelerating launch by <span class="hi">6 months</span>. Led a dual-track strategy (<span class="hi">2K-node</span> storage platform scaling to <span class="hi">5K</span>; <span class="hi">70% cost-reduction</span> DePIN aggregator) by breaking delivery into multiple project streams. Hired PMs, drove budgets, and negotiated <span class="hi">~$350K</span> in immediate-delivery vendor contracts.</li>
+          <li><strong>L2/L3 Storage Layer (Technical Writer):</strong> Authored the main whitepaper for a new data availability layer, translating complex Web2/Web3 concepts for technical and broad audiences.</li>
+          <li><strong>Data Platform (Grafana Plugin Dev):</strong> Developed Grafana plugins for a US defense-industry data startup. Built time-series visualizations & API integrations for data downsampling.</li>
+          <!-- Remaining roles -->
+          <li><strong>L1 Blockchain (Sr. DevOps):</strong> Built testnet infra for <span class="hi">150+ baremetal nodes</span> (validators, RPCs). Deployed full-stack observability on EKS (Loki, Grafana, Vector) and secured ingress (HAProxy, Zero-Trust).</li>
+          <li><strong>DeFi (Infra Lead):</strong> Halted DDoS attacks with WAFs/rate-limits. Re-architected scalable infra across <span class="hi">6 AWS regions</span> and built intent-based solvers (Go, gRPC) for low-latency DEX trades.</li>
+          <!-- Updated DePIN (DevOps Lead) role -->
+          <li><strong>DePIN (DevOps Lead):</strong> Led infra for multi-million valued token airdrops and the block rewards product. Saved <span class="hi">$25k/mo</span> via self-hosted observability on EKS, ArgoCD tuning, and multi-cloud migration.</li>
+          <li><strong>Art Provenance (Blockchain Dev):</strong> Delivered production-grade Hyperledger Fabric on K8s (Terraform, GH Actions). Developed TypeScript smart contracts and CRD-based lifecycle automation for NFT use-cases.</li>
+          <li><strong>AI/LLM Infra:</strong> Built FastAPI-based RAG pipelines (Langchain, vLLM) for real-time knowledge retrieval and deployed ML inference on Ray GPU clusters (GKE, Kueue) for financial use-cases.</li>
+        </ul>
+      </div>
+
+      <!-- CasperLabs -->
+      <div class="card stack">
+        <h3>CasperLabs — Site Reliability Engineer <span class="meta">· 2019 – 2020</span></h3>
+        <p>Scaled validator network from 5 to 100+ nodes. Led SRE for multi-region testnets, defined SLIs/SLOs, and automated infra (Terraform, Ansible). Built Python/Rundeck testbeds for fault tolerance (liveness, safety, throughput).</p>
+      </div>
+      
+      <!-- Rayd8 -->
+      <div class="card stack">
+        <h3>Rayd8 — Chief Software Architect <span class="meta">· 2018 – 2019</span></h3>
+        <p>Shipped an API-first healthcare product for diagnosis of diabetic retinopathy via computer vision. Developed Python Flask APIs and scaffolding to auto-generate K8s configs for GPU inference pipelines. Deployed ML infra on GKE and trained CV models on retinal scans.</p>
+      </div>
+
+      <!-- TrueChain -->
+      <div class="card stack">
+        <h3>TrueChain — R&D Consensus Lead, Head of Engineering <span class="meta">· 2018</span></h3>
+        <p>Co-authored and prototyped a high-TPS hybrid consensus (BFT + PoW), achieving <span class="hi">~100x Ethereum TPS</span>. Filed USPTO patent. Led 20-person team of distributed systems developers and researchers (MIT, NYU, UC Berkeley).</p>
+      </div>
+
+      <!-- Red Hat -->
+      <div class="card stack">
+        <h3>Red Hat — Performance Engineering, R&D <span class="meta">· 2014 – 2018</span></h3>
+        <p>Delivered scale benchmarks across OpenShift, OpenStack, & RHV. Led performance analysis during Meltdown/Spectre CVEs. Authored `Sarjitsu`, a Linux monitoring/analytics framework. Presented at Red Hat Summit & DevConf Europe.</p>
+      </div>
+      
+      <!-- CERN -->
+      <div class="card stack">
+        <h3>CERN — Openlab Summer Student <span class="meta">· 2013</span></h3>
+        <p>Built enhancements to CERN Document Server (CDS). Won Webfest '13 (Data Viz) for a citation-based physicist visualizer. Part of Protonmail's early product brainstorm team.</p>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section class="card section">
+      <h2>Publications &amp; Patents</h2>
+      <ul style="list-style-type: none; padding-left: 5px; display: grid; gap: 10px;">
+        <li>• Co-author: (2018) <strong>TrueChain: Highly Performant Decentralized Public Ledger</strong>. Patent filed with USPTO (#16/517,479) | <a href="https://arxiv.org/abs/1805.01457" target="_blank" rel="noopener noreferrer">Arxiv</a>, <a href="https://huggingface.co/papers/1805.01457" target="_blank" rel="noopener noreferrer">PapersWithCode</a></li>
+        <li>• Co-author: (2016) <strong>Performance & Scale Tuning of Satellite 6.2 and capsules</strong>. Red Hat Knowledge Base.</li>
+        <li>• Contributor: (2015) <strong>QEMU KVM Disk I/O: Which performs better, Native or Threads?</strong> Red Hat Knowledge Base.</li>
+        <li>• Co-author: (2013) <strong>User collections and query visualizations (CDS)</strong>. <a href="http://dx.doi.org/10.5281/zenodo.7562" target="_blank" rel="noopener noreferrer">Zenodo-10.5281/zenodo.7562</a></li>
+      </ul>
+    </section>
+
+    <!-- CERTS / EDU -->
+    <section class="grid-2 section">
+      <div class="card">
+        <h2>Certifications</h2>
+        <ul style="list-style-type: none; padding-left: 5px;">
+          <li>• Kubernetes Security Specialist (CKS)</li>
+          <li>• Kubernetes Administrator (CKA)</li>
+          <li>• Hyperledger Fabric Developer (CHFD)</li>
+          <li>• Red Hat Engineer & Administrator (RHCE & RHCSA)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Education</h2>
+        <ul style="list-style-type: none; padding-left: 5px;">
+          <li><strong>B.Tech, Computer Science</strong> — Amity University</li>
+          <li>Minor in Communication Skills, French and Behavioral Science.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TALKS -->
+    <section class="card section">
+      <h2>Talks &amp; Recognition</h2>
+      <span class="chip">DevConf ’16 (KVM Block I/O)</span>
+      <span class="chip">Blockchain Connect ’18 (San Jose)</span>
+      <span class="chip">Starfish Mission ’18 (San Francisco)</span>
+      <span class="chip">KubeCon ’21 (CNCF BugBash Top 3)</span>
+      <span class="chip">Docker Hackathon (State Winner)</span>
+      <span class="chip">CERN Webfest ’13 (Data Viz Winner)</span>
+      <span class="chip">DoraHacks (Runner up)</span>
+    </section>
+
+  </div>
+</body>
+</html>
